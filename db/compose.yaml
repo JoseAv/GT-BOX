@@ -5,6 +5,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=mi_base_datos
     volumes:
       - ./data:/var/lib/postgresql/data
     ports:

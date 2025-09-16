@@ -1,5 +1,6 @@
 import express from "express"
 import { config } from "./env/env.js"
+import { db } from './config/db/sequelize.js'
 
 
 
