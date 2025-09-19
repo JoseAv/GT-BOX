@@ -2,17 +2,15 @@ import type { Request, Response } from "express";
 
 
 export interface typeUserModel {
-    createUser: ({ user }: { user: userCreate }) => sendInformation
+    createUser: ({ user }: { user: userCreate }) => ValidationError
 
 }
-
 
 export interface typeUserControler {
     ModelUser: typeUserModel
     createUser: (req: Request, res: Response) => Response
 }
 
-export type sendInformation = Array<number | string>
 
 
 export interface typeUser {
@@ -29,3 +27,11 @@ export interface typeUser {
 }
 
 export type userCreate = Omit<typeUser, 'id' | 'create_date'>
+
+
+interface responseObjectUser {
+    message: string
+    data?: userCreate | string | boolean
+
+}
+export type ValidationError = [number, responseObjectUser] // Para errores

@@ -12,6 +12,6 @@ const createUser = z.object({
     is_active: z.number().optional()
 })
 
-export const validateCreateUser = ({ user }: { user: userCreate }) => {
+export const validateCreateUser = async ({ user }: { user: userCreate }) => {
     return createUser.safeParse(user)
 }

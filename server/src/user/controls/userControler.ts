@@ -11,7 +11,6 @@ export class userControler implements typeUserControler {
 
 
     createUser = (req: Request, res: Response) => {
-        console.log(req.body)
         const user = req.body
         const [status, data] = this.ModelUser.createUser({ user })
 
