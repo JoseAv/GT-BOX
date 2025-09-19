@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 
 
 export interface typeUserModel {
-
+    createUser: ({ user }: { user: userCreate }) => sendInformation
 
 }
 

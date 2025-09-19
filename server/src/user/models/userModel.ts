@@ -1,10 +1,11 @@
-import type { typeUserModel, userCreate, sendInformation } from "../interfaces/user.js";
+import type { userCreate, sendInformation } from "../interfaces/user.js";
+import { userValidation } from "../Validations/userValidations.js";
 
 
-export class userModel implements typeUserModel {
+export class userModel {
 
-
-    static createUser = (user: userCreate): sendInformation => {
+    static createUser = ({ user }: { user: userCreate }): sendInformation => {
+        const [status, data] = userValidation.validateCreateUser({ user })
 
         return [2343, 'hola']
 
