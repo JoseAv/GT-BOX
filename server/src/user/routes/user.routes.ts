@@ -3,10 +3,10 @@ import { userControler } from "../controls/userControler.js"
 import type { typeUserModel } from "../interfaces/user.js"
 
 
-export const userRouter = (userModel: typeUserModel) => {
+export const userRouter = async (userModel: typeUserModel) => {
     const userRouter = Router()
-    const controler = new userControler(userModel)
-    userRouter.post('/create', controler.createUser)
+    const controler = new userControler(userModel as typeUserModel)
+    userRouter.post('/create', await controler.createUser)
 
     return userRouter
 }

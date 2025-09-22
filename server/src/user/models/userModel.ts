@@ -1,20 +1,17 @@
-import type { userCreate, ValidationError } from "../interfaces/user.js";
+import type { typeUser, userCreate, ValidationError } from "../interfaces/user.js";
+import { userRepo } from "../repositories/userRepo.js";
 import { userValidation } from "../Validations/userValidations.js";
 
 
 export class userModel {
 
-    static createUser = async ({ user }: { user: userCreate }): Promise<ValidationError> => {
-        const [valid, data] = await userValidation.validateCreateUser({ user })
+    static createUserModel = async ({ user }: { user: userCreate }): Promise<ValidationError> => {
+        const [valid, successUser] = await userValidation.validateCreateUser({ user })
 
         if (valid >= 400)
-            return [+valid, { message: data.message }]
+            return [+valid, { message: successUser.message }]
 
-
-
-
-        return [2343, { message: 'Create User Success' }]
-
+        return await userRepo.dbCreateUser({ user: successUser.data as userCreate })
     }
 
 

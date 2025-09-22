@@ -2,13 +2,13 @@ import type { Request, Response } from "express";
 
 
 export interface typeUserModel {
-    createUser: ({ user }: { user: userCreate }) => ValidationError
+    createUserModel: ({ user }: { user: userCreate }) => Promise<ValidationError>
 
 }
 
 export interface typeUserControler {
     ModelUser: typeUserModel
-    createUser: (req: Request, res: Response) => Response
+    createUser: (req: Request, res: Response) => Promise<Response>
 }
 
 

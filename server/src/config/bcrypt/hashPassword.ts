@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import { config } from '../../env/env.js'
+import { config } from '../../shared/env/env.js'
 import type { ValidationError } from '../../user/interfaces/user.js'
 
 export const hashPassword = async (password: string): Promise<ValidationError> => {

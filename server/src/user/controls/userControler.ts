@@ -10,11 +10,10 @@ export class userControler implements typeUserControler {
     }
 
 
-    createUser = (req: Request, res: Response) => {
+    createUser = async (req: Request, res: Response): Promise<Response> => {
         const user = req.body
-        const [status, data] = this.ModelUser.createUser({ user })
-
-        return res.status(200).json({})
+        const [status, data] = await this.ModelUser.createUserModel({ user })
+        return res.status(status).json({ ...data })
 
     }
 
