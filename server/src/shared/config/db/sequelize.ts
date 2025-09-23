@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import { config } from '../../shared/env/env.js'
+import { config } from "../../env/env.js";
 
 
 export const db = new Sequelize(config.username, config.username, config.password, {
