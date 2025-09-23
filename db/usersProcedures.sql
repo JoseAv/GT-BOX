@@ -75,7 +75,7 @@ as $$
 
 -- fuctions
 
-
+-- POST
 create or replace function sp_create_user (
     sp_first_name varchar(100),
     sp_second_name varchar(100),
@@ -135,3 +135,36 @@ as $$
            'jose@gmail.com',
            '1999/03/09'
           );
+
+-- GET
+
+create or replace function fn_get_all_users()
+returns json
+    as $$
+    declare
+        data_user json;
+    begin
+
+    select json_object_agg(
+            user_name,
+           json_build_object(
+           'id',id,
+           'first_name',first_name,
+           'second_name',second_name,
+           'user_name',user_name,
+           'email',email,
+           'date_of_birth', date_of_birth,
+           'is_active', is_active
+           )
+           ) into data_user from users;
+
+        return fn_json_success(code:=200,message := 'Get User success', data := data_user);
+
+    EXCEPTION
+        WHEN others then
+            return  fn_json_rejected(400, message := 'ERROR IN DATA BASE FN_USERS');
+        end
+    $$ language plpgsql;
+
+
+select fn_get_all_users()

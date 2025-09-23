@@ -14,6 +14,10 @@ export class userModel {
         return await userRepo.dbCreateUser({ user: successUser.data as userCreate })
     }
 
+    static getAllUser = async (): Promise<ValidationError> => {
+        return await userRepo.getAllUser()
+    }
+
 
 
 

@@ -17,4 +17,10 @@ export class userControler implements typeUserControler {
 
     }
 
+    getAllUser = async (req: Request, res: Response): Promise<Response> => {
+        const [status, data] = await this.ModelUser.getAllUser()
+        return res.status(status).json({ ...data })
+    }
+
+
 }

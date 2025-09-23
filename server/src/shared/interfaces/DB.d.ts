@@ -11,3 +11,7 @@ export interface responseSuccessDB {
 export interface GenericSpResponse {
     [key: string]: responseSuccessDB
 }
+
+export interface ResultDB {
+    result: responseSuccessDB
+}
