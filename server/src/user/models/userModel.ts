@@ -18,6 +18,16 @@ export class userModel {
         return await userRepo.getAllUser()
     }
 
+    static updateUser = async ({ user }: { user: typeUser }): Promise<ValidationError> => {
+        const [valid, successUser] = await userValidation.validateUpdateUser({ user })
+
+        if (valid >= 400)
+            return [+valid, { message: successUser.message }]
+
+
+        return await userRepo.dbUpdateUser({ user: successUser.data as typeUser })
+    }
+
 
 
 

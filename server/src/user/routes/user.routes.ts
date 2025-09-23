@@ -8,6 +8,8 @@ export const userRouter = async (userModel: typeUserModel) => {
     const controler = new userControler(userModel as typeUserModel)
     userRouter.post('/create', await controler.createUser)
     userRouter.get('/all', await controler.getAllUser)
+    userRouter.patch('/update', await controler.updateUser)
+
 
 
 

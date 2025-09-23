@@ -1,7 +1,7 @@
-import type { userCreate, ValidationError } from "../interfaces/user.js";
+import type { typeUser, userCreate, ValidationError } from "../interfaces/user.js";
 
 import { QueryTypes } from "sequelize";
-import type { GenericSpResponse, responseSuccessDB, ResultDB } from "../../shared/interfaces/DB.js";
+import type { GenericSpResponse, ResultDB } from "../../shared/interfaces/DB.js";
 import { db } from "../../shared/config/db/sequelize.js";
 
 
@@ -44,7 +44,6 @@ export class userRepo {
                 return [400, { message: 'Empty Data to show' }]
 
             const responseDb = queryGetAllUser[0].result
-            console.log(responseDb)
 
             return [responseDb.http_code, { ...responseDb }]
 
@@ -53,8 +52,36 @@ export class userRepo {
             return [400, { message: String(error) }]
 
         }
+    }
 
+    static dbUpdateUser = async ({ user }: { user: typeUser }): Promise<ValidationError> => {
+        console.log(user.is_active)
 
+        try {
+            const queryUpdateUser: Array<ResultDB> = await db.query('select fn_update_user(:sp_id, :sp_first_name,:sp_second_name,:sp_first_last_name,:sp_password,:sp_user_name,:sp_email,:sp_date_of_birth,:f_is_active) as result',
+                {
+                    replacements: {
+                        sp_id: user.id,
+                        sp_first_name: user.first_name || null,
+                        sp_second_name: user.second_name || null,
+                        sp_first_last_name: user.first_last_name || null,
+                        sp_password: user.password || null,
+                        sp_user_name: user.user_name || null,
+                        sp_email: user.email || null,
+                        sp_date_of_birth: user.date_of_birth || null,
+                        f_is_active: !user.is_active ? user.is_active : null
+                    },
+                    type: QueryTypes.SELECT
+                })
+
+            if (!queryUpdateUser || queryUpdateUser.length === 0 || !queryUpdateUser[0])
+                return [400, { message: 'Empty Data to show' }]
+
+            const responseDb = queryUpdateUser[0].result
+            return [responseDb.http_code, { ...responseDb }]
+        } catch (error) {
+            return [400, { message: String(error) }]
+        }
     }
 
 
