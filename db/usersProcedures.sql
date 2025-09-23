@@ -169,4 +169,59 @@ returns json
 
 select fn_get_all_users()
 
--- GET Update User
+-- PATCH Update User
+
+select * from users;
+
+create or replace function fn_update_user(
+    f_id int ,
+    f_first_name varchar(100) default null,
+    f_second_name varchar(100) default null,
+    f_first_last_name varchar(100) default null,
+    f_password text default null,
+    f_user_name varchar(300) default null,
+    f_email text default null,
+    f_date_of_birth date default null,
+    f_is_active boolean default null
+)
+    returns json
+as $$
+    declare
+        date_user json;
+    begin
+    if(select 1 from users where id = f_id) is null then
+             return fn_json_rejected(406, 'USER NOT EXIST');
+
+    end if;
+
+    if  ( f_date_of_birth)  IS NOT NULL then
+         if(select age_comprobate(f_date_of_birth)) is not true then
+             return fn_json_rejected(406, 'No cumple la mayoria de edad');
+         end if;
+    END IF;
+
+    update users
+    set first_name= coalesce(f_first_name, first_name),
+        second_name= coalesce(f_second_name,second_name),
+        first_last_name= coalesce(f_first_last_name, first_last_name),
+        password= coalesce(f_password, password),
+        user_name= coalesce(f_user_name, user_name),
+        email= coalesce(f_email,email),
+        date_of_birth= coalesce(f_date_of_birth, date_of_birth),
+        is_active= coalesce(f_is_active, is_active)
+        where id = f_id;
+
+    return fn_json_success(201,'COMPLETE UPDATE', date_user);
+
+    EXCEPTION
+    when unique_violation then
+        return fn_json_rejected(409, 'ALREADY EXIST DATA');
+    when others  then
+        return fn_json_rejected(409, 'ERROR IN UPDATE USER');
+    end;
+
+    $$ language plpgsql;
+
+
+select * from users;
+select fn_update_user(3)
