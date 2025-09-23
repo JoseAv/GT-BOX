@@ -136,7 +136,7 @@ as $$
            '1999/03/09'
           );
 
--- GET
+-- GET one user
 
 create or replace function fn_get_all_users()
 returns json
@@ -168,3 +168,5 @@ returns json
 
 
 select fn_get_all_users()
+
+-- GET Update User
