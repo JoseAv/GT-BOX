@@ -1,4 +1,4 @@
-import { hashPassword } from "../../config/bcrypt/hashPassword.js"
+import { hashPassword } from "../../shared/config/bcrypt/hashPassword.js"
 import type { typeUser, userCreate, ValidationError } from "../interfaces/user.js"
 import { validateCreateUser } from "./userSchema.js"
 

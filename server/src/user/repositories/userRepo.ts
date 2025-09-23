@@ -1,7 +1,8 @@
 import type { userCreate, ValidationError } from "../interfaces/user.js";
-import { db } from '../../config/db/sequelize.js'
+
 import { QueryTypes } from "sequelize";
 import type { GenericSpResponse, responseSuccessDB, ResultDB } from "../../shared/interfaces/DB.js";
+import { db } from "../../shared/config/db/sequelize.js";
 
 
 export class userRepo {
