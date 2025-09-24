@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import type { typeLoginModel } from "../interfaces/login.js";
+import { config } from "../../shared/env/env.js";
 
 
 
@@ -11,7 +12,22 @@ export class controlLogin {
     }
 
     login = async (req: Request, res: Response): Promise<Response> => {
-        return res.status(Number(200)).json({})
+        // mandar al model
+        // el modelo me regresa el jwt
+
+        return res.cookie(config.loginCookie, 'information', {
+            httpOnly: true,
+            maxAge: 3600,
+        }).send('cookie is set')
+    }
+
+
+    logout = async (req: Request, res: Response): Promise<Response> => {
+
+        res.clearCookie(config.loginCookie)
+        return res.status(200).json({ message: 'Saliendo ...' })
+
+
     }
 
 }
