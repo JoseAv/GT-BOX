@@ -2,7 +2,8 @@ interface typesCongig {
     port: number,
     username: string,
     password: string,
-    salt: number
+    salt: number,
+    secret: Uint8Array<ArrayBuffer>
 }
 
 
@@ -13,4 +14,5 @@ export const config: typesCongig = {
     username: String(process.env.USERNAME_DB),
     password: String(process.env.PASSWORD_DB),
     salt: Number(process.env.SALT) || 10,
+    secret: new TextEncoder().encode(process.env.SECRET)
 } as const

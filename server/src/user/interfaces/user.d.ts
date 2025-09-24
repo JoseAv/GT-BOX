@@ -4,7 +4,7 @@ import type { Request, Response } from "express";
 export interface typeUserModel {
     createUserModel: ({ user }: { user: userCreate }) => Promise<ValidationError>
     getAllUser: () => Promise<ValidationError>
-    updateUser: ({ user }: { user: userCreate }) => Promise<ValidationError>
+    updateUser: ({ user }: { user: typeUser }) => Promise<ValidationError>
 }
 
 export interface typeUserControler {
