@@ -13,7 +13,6 @@ export const veryCooki = (req: Request, res: Response, next: NextFunction) => {
         // const payload = VerifyToken()
         // payload.logintime
         // validamos fecha
-
         // volvemos a crear cookie si aun es valido
 
 

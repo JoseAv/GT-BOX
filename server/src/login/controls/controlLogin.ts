@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import type { typeLoginModel } from "../interfaces/login.js";
+import type { loginUser, typeLoginModel } from "../interfaces/login.js";
 import { config } from "../../shared/env/env.js";
 
 
@@ -12,8 +12,15 @@ export class controlLogin {
     }
 
     login = async (req: Request, res: Response): Promise<Response> => {
-        // mandar al model
-        // el modelo me regresa el jwt
+        //? 1. Extraer req.body
+        const user = req.body
+
+        //? 2. Mandar la informacion al modelo
+        this.controlModelLogin.login({ user })
+
+
+
+
 
         return res.cookie(config.loginCookie, 'information', {
             httpOnly: true,
