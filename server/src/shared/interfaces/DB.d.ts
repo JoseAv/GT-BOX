@@ -15,3 +15,20 @@ export interface GenericSpResponse {
 export interface ResultDB {
     result: responseSuccessDB
 }
+
+export interface typeJwt {
+    user: id,
+    loginTime: number
+}
+
+
+
+// Extendemos Request
+
+declare global {
+    namespace Express {
+        interface Request {
+            session?: SessionData | null;
+        }
+    }
+}

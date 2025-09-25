@@ -22,7 +22,7 @@ export class controlLogin {
     }
 
 
-    logout = async (req: Request, res: Response): Promise<Response> => {
+    logout = async (_: Request, res: Response): Promise<Response> => {
         res.clearCookie(config.loginCookie)
         return res.status(200).json({ message: 'Saliendo ...' })
     }

@@ -3,16 +3,28 @@ import { config } from "../../env/env.js";
 
 
 export const signToken = async ({ user }: { user: number }) => {
-    return await new SignJWT({ user, loginTime: Date.now() })
-        .setProtectedHeader({ alg: 'HS256' })
-        .setIssuedAt()
-        .setExpirationTime('2h')
-        .sign(config.secret)
+    try {
+
+        return await new SignJWT({ user, loginTime: Date.now() })
+            .setProtectedHeader({ alg: 'HS256' })
+            .setIssuedAt()
+            .setExpirationTime('2h')
+            .sign(config.secret)
+
+    } catch (error) {
+        return String(error)
+    }
+
+
 }
 
 export const VerifyToken = async ({ jwt }: { jwt: string }) => {
-    const { payload, protectedHeader } = await jwtVerify(jwt, config.secret)
-    return payload
+    try {
+        const { payload, protectedHeader } = await jwtVerify(jwt, config.secret)
+        return payload
+    } catch (error) {
+        return String(error)
+    }
 
 }
 
