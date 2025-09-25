@@ -18,16 +18,13 @@ export class controlLogin {
         return res.cookie(config.loginCookie, 'information', {
             httpOnly: true,
             maxAge: 3600,
-        }).send('cookie is set')
+        }).status(200).json({ message: 'Exito en el inicio de sesion' })
     }
 
 
     logout = async (req: Request, res: Response): Promise<Response> => {
-
         res.clearCookie(config.loginCookie)
         return res.status(200).json({ message: 'Saliendo ...' })
-
-
     }
 
 }
