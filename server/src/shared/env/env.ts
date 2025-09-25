@@ -4,6 +4,8 @@ interface typesCongig {
     password: string,
     salt: number,
     secret: Uint8Array<ArrayBuffer>
+    loginCookie: string,
+    relogin: string
 }
 
 
@@ -14,5 +16,8 @@ export const config: typesCongig = {
     username: String(process.env.USERNAME_DB),
     password: String(process.env.PASSWORD_DB),
     salt: Number(process.env.SALT) || 10,
-    secret: new TextEncoder().encode(process.env.SECRET)
+    secret: new TextEncoder().encode(process.env.SECRET),
+    loginCookie: String(process.env.LOGINCOOKIE),
+    relogin: String(process.env.RELOGINCOOKIE)
+
 } as const
