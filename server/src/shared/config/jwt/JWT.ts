@@ -5,7 +5,6 @@ import type { typeLogin } from "../../../login/interfaces/login.js";
 
 export const signToken = async ({ user }: { user: typeLogin }) => {
     try {
-
         return await new SignJWT({ user, loginTime: Date.now() })
             .setProtectedHeader({ alg: 'HS256' })
             .setIssuedAt()

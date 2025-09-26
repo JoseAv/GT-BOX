@@ -1,17 +1,32 @@
 import type { NextFunction, Response, Request } from "express";
+import { tokenDate, VerifyToken } from "../config/jwt/JWT.js";
+import { config } from "../env/env.js";
 
-export const veryCooki = (req: Request, res: Response, next: NextFunction) => {
+export const veryCooki = async (req: Request, res: Response, next: NextFunction) => {
 
-    // ? Primero extraemos el cookie lo mandamos a decodificar y luego mandamos la fecha que regresa el payload si ya tiene tiempo de expiracion elevado 
-    // ? si me regresa true entonces vuelvo a mandar a revalidar la cookie por lo tanto lo dejamos pasar y que vaya a la ruta que tenga que ir
-    // ? tambien necesitamos una funcion que sea la encargada de refrescar la cookie
     try {
+        // ? 1. Extraemos la cookie y objeto session
+        const cookie = req.cookies[config.loginCookie]
+        console.log(cookie)
+        if (cookie) {
+            req.session = null
+            console.log(cookie)
+            // ? 2. mandamos a verificar la jwt
+            const verifyJwt = await VerifyToken({ jwt: cookie })
+            // ? 3. mandamos a validar la fecha
+            const verifyDate = await tokenDate(verifyJwt.loginTime)
+            console.log(verifyDate)
+            //? 4 depende de la fecha llenamos el req.session
 
-        const cookie = req.cookies
-        req.session = null
-        //verficamos token
-        // const payload = VerifyToken()
-        // payload.logintime
+            //? 5 salimos de la funcion
+            next()
+
+
+        }
+        next()
+
+
+        // 
         // validamos fecha
         // volvemos a crear cookie si aun es valido
 
@@ -23,7 +38,6 @@ export const veryCooki = (req: Request, res: Response, next: NextFunction) => {
     }
 
 
-    next()
 
 
 }

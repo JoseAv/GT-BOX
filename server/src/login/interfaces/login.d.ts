@@ -24,9 +24,19 @@ export interface typeLogin {
     password: string
 }
 
+export interface typeLoginDB {
+    first_name: string
+    password: string
+}
+
 interface responseLogin {
     message: string;
     data?: typeLogin
 
 }
 export type ValidationLogin = [number, responseLogin] // Para errores
+
+interface cookieJwt {
+    user: typeLogin
+
+}

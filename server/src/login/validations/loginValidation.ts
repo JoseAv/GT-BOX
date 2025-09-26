@@ -15,7 +15,6 @@ export const Validationlogin = async ({ user }: { user: loginUser }) => {
 
         //? 4. el modelo debe de mandar a llamar al repo despues de verificar
         const [status, userData] = await RepoLogin.login({ email: user.email })
-
         //? 5. El repo devuelve si encontro al user
         if (status >= 400 || !userData.data)
             return [400, { message: 'No se encontro el user' }]
