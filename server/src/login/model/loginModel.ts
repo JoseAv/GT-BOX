@@ -9,7 +9,8 @@ export class loginModel {
         try {
 
             //? 3. el modelo debe de verificar elschema
-            const verifySchema = Validationlogin({ user })
+            return await Validationlogin({ user })
+
             //? 4. el modelo debe de mandar a llamar al repo despues de verificar
             //? 5. El repo devuelve si encontro al user
             //? 6. El modelo va a verificar la contrase;a

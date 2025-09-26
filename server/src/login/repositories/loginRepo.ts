@@ -8,13 +8,18 @@ export class RepoLogin {
     static login = async ({ email }: { email: string }): Promise<ValidationError> => {
         try {
 
-            const queryLogin: Array<ResultDB> = await db.query('SELECT (loginUser(:user_id)) as result;', { type: QueryTypes.SELECT }
+            const queryLogin: Array<ResultDB> = await db.query('SELECT (loginUser(:user_mail)) as result;',
+                {
+                    replacements: {
+                        user_mail: email
+                    },
+                    type: QueryTypes.SELECT
+                }
             )
             if (!queryLogin || queryLogin.length === 0 || !queryLogin[0])
                 return [400, { message: 'Empty Data to show' }]
 
             const responseDb = queryLogin[0].result
-            console.log('Information de la DB', responseDb)
             return [responseDb.http_code, { ...responseDb }]
 
 

@@ -19,6 +19,7 @@ export const Validationlogin = async ({ user }: { user: loginUser }) => {
             return [400, { message: 'No se encontro el user' }]
 
 
+
         //? 6. El modelo va a verificar la contrase;a
 
         //? 7 el modelo me va a regresar la informacion ya con el jwt

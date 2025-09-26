@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import type { loginUser, typeLoginModel } from "../interfaces/login.js";
+import type { typeLoginModel } from "../interfaces/login.js";
 import { config } from "../../shared/env/env.js";
 
 
@@ -16,11 +16,11 @@ export class controlLogin {
         const user = req.body
 
         //? 2. Mandar la informacion al modelo
-        this.controlModelLogin.login({ user })
+        const [status, information] = await this.controlModelLogin.login({ user })
+        console.log(status)
 
-
-
-
+        if (status >= 400)
+            return res.status(status).json({ ...information })
 
         return res.cookie(config.loginCookie, 'information', {
             httpOnly: true,
