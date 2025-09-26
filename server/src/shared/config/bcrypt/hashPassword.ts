@@ -11,12 +11,11 @@ export const hashPassword = async (password: string): Promise<ValidationError> =
     }
 }
 
-export const comparePassword = async (password: string, hashPassword: string): Promise<ValidationError> => {
+export const comparePassword = async (password: string, hashPassword: string): Promise<boolean> => {
     try {
-        const comparePassword = await bcrypt.compare(password, hashPassword)
-        return [200, { message: 'Completed', data: comparePassword }]
+        return await bcrypt.compare(password, hashPassword)
     } catch (ex) {
-        return [400, { message: String(ex) }]
+        return false
 
     }
 }

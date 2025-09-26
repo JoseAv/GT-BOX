@@ -15,5 +15,18 @@ export interface loginUser {
 export interface typeLoginModel {
     login: ({ user }: { user: loginUser }) => Promise<ValidationError>
 
+}
+
+
+
+export interface typeLogin {
+    email: string
+    password: string
+}
+
+interface responseLogin {
+    message: string;
+    data?: typeLogin
 
 }
+export type ValidationLogin = [number, responseLogin] // Para errores

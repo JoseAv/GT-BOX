@@ -1,11 +1,11 @@
 import QueryTypes from "sequelize/lib/query-types"
 import { db } from "../../shared/config/db/sequelize.js"
 import type { ResultDB } from "../../shared/interfaces/DB.js"
-import type { ValidationError } from "../../user/interfaces/user.js"
+import type { ValidationLogin } from "../interfaces/login.js"
 
 export class RepoLogin {
 
-    static login = async ({ email }: { email: string }): Promise<ValidationError> => {
+    static login = async ({ email }: { email: string }): Promise<ValidationLogin> => {
         try {
 
             const queryLogin: Array<ResultDB> = await db.query('SELECT (loginUser(:user_mail)) as result;',

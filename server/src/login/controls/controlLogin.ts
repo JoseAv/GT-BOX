@@ -17,12 +17,11 @@ export class controlLogin {
 
         //? 2. Mandar la informacion al modelo
         const [status, information] = await this.controlModelLogin.login({ user })
-        console.log(status)
 
         if (status >= 400)
             return res.status(status).json({ ...information })
 
-        return res.cookie(config.loginCookie, 'information', {
+        return res.cookie(config.loginCookie, information, {
             httpOnly: true,
             maxAge: 3600,
         }).status(200).json({ message: 'Exito en el inicio de sesion' })
