@@ -3,6 +3,7 @@ import type { typeUser, userCreate, ValidationError } from "../interfaces/user.j
 import { QueryTypes } from "sequelize";
 import type { GenericSpResponse, ResultDB } from "../../shared/interfaces/DB.js";
 import { db } from "../../shared/config/db/sequelize.js";
+import { boolean } from "zod";
 
 
 export class userRepo {
@@ -55,8 +56,7 @@ export class userRepo {
     }
 
     static dbUpdateUser = async ({ user }: { user: typeUser }): Promise<ValidationError> => {
-        console.log(user.is_active)
-
+        const userActive = typeof user.is_active !== 'boolean' ? null : user.is_active
         try {
             const queryUpdateUser: Array<ResultDB> = await db.query('select fn_update_user(:sp_id, :sp_first_name,:sp_second_name,:sp_first_last_name,:sp_password,:sp_user_name,:sp_email,:sp_date_of_birth,:f_is_active) as result',
                 {
@@ -69,7 +69,7 @@ export class userRepo {
                         sp_user_name: user.user_name || null,
                         sp_email: user.email || null,
                         sp_date_of_birth: user.date_of_birth || null,
-                        f_is_active: !user.is_active ? user.is_active : null
+                        f_is_active: userActive
                     },
                     type: QueryTypes.SELECT
                 })

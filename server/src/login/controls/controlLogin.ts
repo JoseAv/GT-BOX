@@ -12,10 +12,16 @@ export class controlLogin {
     }
 
     login = async (req: Request, res: Response): Promise<Response> => {
-        // mandar al model
-        // el modelo me regresa el jwt
+        //? 1. Extraer req.body
+        const user = req.body
 
-        return res.cookie(config.loginCookie, 'information', {
+        //? 2. Mandar la informacion al modelo
+        const [status, information] = await this.controlModelLogin.login({ user })
+
+        if (status >= 400)
+            return res.status(status).json({ ...information })
+
+        return res.cookie(config.loginCookie, information, {
             httpOnly: true,
             maxAge: 3600,
         }).status(200).json({ message: 'Exito en el inicio de sesion' })

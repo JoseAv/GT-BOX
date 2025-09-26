@@ -1,8 +1,9 @@
 import { SignJWT, jwtVerify } from "jose";
 import { config } from "../../env/env.js";
+import type { typeLogin } from "../../../login/interfaces/login.js";
 
 
-export const signToken = async ({ user }: { user: number }) => {
+export const signToken = async ({ user }: { user: typeLogin }) => {
     try {
 
         return await new SignJWT({ user, loginTime: Date.now() })
@@ -10,7 +11,6 @@ export const signToken = async ({ user }: { user: number }) => {
             .setIssuedAt()
             .setExpirationTime('2h')
             .sign(config.secret)
-
     } catch (error) {
         return String(error)
     }

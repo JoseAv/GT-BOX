@@ -5,7 +5,6 @@ export interface responseSuccessDB {
     message: string
     http_code: number
     time: string
-    data?: string
 }
 
 export interface GenericSpResponse {
