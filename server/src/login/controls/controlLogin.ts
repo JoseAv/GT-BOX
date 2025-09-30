@@ -43,7 +43,8 @@ export class controlLogin {
 
     logout = async (_: Request, res: Response): Promise<Response> => {
         res.clearCookie(config.loginCookie)
-        return res.status(200).json({ message: 'Saliendo ...' })
+        // res.clearCookie(config.relogin)
+        return res.status(200).json({ message: 'Sasliendo ...' })
     }
 
 }

@@ -7,7 +7,6 @@ import { SchemaLoginUser } from "./loginSchema.js"
 
 export const Validationlogin = async ({ user }: { user: loginUser }) => {
     try {
-
         //? 3. el modelo debe de verificar elschema
         const { success } = await SchemaLoginUser({ user })
         if (!success)

@@ -18,7 +18,7 @@ export const signTokenAcces = async ({ user }: { user: saveJWt }) => {
 
 export const signTokenRefresh = async ({ userId }: { userId: number }) => {
     try {
-        return await new SignJWT({ userId })
+        return await new SignJWT({ id: userId })
             .setProtectedHeader({ alg: 'HS256' })
             .setIssuedAt()
             .setExpirationTime('7d')
@@ -36,7 +36,7 @@ export const VerifyToken = async ({ jwt }: { jwt: string }) => {
         return payload
 
     } catch (error) {
-        console.log(error)
+        console.log('Fecha no valida')
         return null
     }
 

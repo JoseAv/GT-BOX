@@ -1,5 +1,6 @@
 import type { loginUser } from "../interfaces/login.js";
 import { Validationlogin } from "../validations/loginValidation.js";
+import { RepoLogin } from "../repositories/loginRepo.js";
 
 export class loginModel {
 
@@ -7,6 +8,15 @@ export class loginModel {
     static async login({ user }: { user: loginUser }) {
         try {
             return await Validationlogin({ user })
+        } catch (error) {
+            return [400, String(error)]
+        }
+
+    }
+
+    static async refreshUser({ userId }: { userId: number }) {
+        try {
+            return await RepoLogin.refreshUser({ userId })
         } catch (error) {
             return [400, String(error)]
         }
