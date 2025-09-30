@@ -1,6 +1,8 @@
 import type { Request, Response } from "express";
 import type { typeLoginModel } from "../interfaces/login.js";
 import { config } from "../../shared/env/env.js";
+import { usersCache } from "../../shared/cache/loginUser.js";
+import { accesCookie, RefreshCookie } from "../../shared/cookie/refreshCookie.js";
 
 
 
@@ -20,10 +22,11 @@ export class controlLogin {
         if (status >= 400)
             return res.status(status).json({ ...information })
 
-        return res.cookie(config.loginCookie, information, {
-            httpOnly: true,
-            maxAge: 1000 * 60 * 60,
-        }).status(200).json({ message: 'Exito en el inicio de sesion' })
+
+        //? 4. Guardamos la cookie
+        accesCookie(res, information)
+        RefreshCookie(res, information)
+        return res.status(200).json({ message: 'Exito en el inicio de sesion' })
     }
 
 

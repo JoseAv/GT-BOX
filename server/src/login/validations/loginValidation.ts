@@ -1,3 +1,4 @@
+import { usersCache } from "../../shared/cache/loginUser.js"
 import { comparePassword } from "../../shared/config/bcrypt/hashPassword.js"
 import { signToken } from "../../shared/config/jwt/JWT.js"
 import type { loginUser } from "../interfaces/login.js"
@@ -27,11 +28,13 @@ export const Validationlogin = async ({ user }: { user: loginUser }) => {
         if (!verifyPassword)
             return [400, { message: 'Error en correo o password' }]
 
-        console.log(userWithoutPassword)
-        //? 7 el modelo me va a regresar la informacion ya con el jwt
+        //? 7. Mandar a Guardar en cache
+        usersCache.saveUser({ user: userWithoutPassword })
+
+        //? 8 el modelo me va a regresar la informacion ya con el jwt
         const jwt = await signToken({ user: userWithoutPassword })
 
-        //? 8 Regresamos el nuevo JWT
+        //? 9 Regresamos el nuevo JWT
         return [200, jwt]
 
 

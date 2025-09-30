@@ -1,4 +1,4 @@
-import type { saveJWt } from "../interfaces/login.js"
+import type { saveJWt } from "../../login/interfaces/login.js"
 
 class cacheUser {
     users: Record<number, saveJWt> = {}
@@ -8,7 +8,7 @@ class cacheUser {
         return
     }
 
-    ChangeUser = ({ user }: { user: saveJWt }) => {
+    deleteUser = ({ user }: { user: saveJWt }) => {
         if (!this.users)
             return
 
@@ -22,7 +22,7 @@ class cacheUser {
     }
 
     searchUser = ({ user }: { user: saveJWt }) => {
-        return this.users[user.id] ?? user
+        return this.users[user.id] ? true : false
     }
 
 
