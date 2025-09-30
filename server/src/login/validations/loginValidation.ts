@@ -1,6 +1,5 @@
 import { usersCache } from "../../shared/cache/loginUser.js"
 import { comparePassword } from "../../shared/config/bcrypt/hashPassword.js"
-import { signToken } from "../../shared/config/jwt/JWT.js"
 import type { loginUser } from "../interfaces/login.js"
 import { RepoLogin } from "../repositories/loginRepo.js"
 import { SchemaLoginUser } from "./loginSchema.js"
@@ -22,7 +21,6 @@ export const Validationlogin = async ({ user }: { user: loginUser }) => {
             return [400, { message: 'No se encontro el user' }]
         const { password, ...userWithoutPassword } = userData.data;
 
-
         //? 6. El modelo va a verificar la contrase;a
         const verifyPassword = await comparePassword(user.password, password)
         if (!verifyPassword)
@@ -31,15 +29,12 @@ export const Validationlogin = async ({ user }: { user: loginUser }) => {
         //? 7. Mandar a Guardar en cache
         usersCache.saveUser({ user: userWithoutPassword })
 
-        //? 8 el modelo me va a regresar la informacion ya con el jwt
-        const jwt = await signToken({ user: userWithoutPassword })
-
         //? 9 Regresamos el nuevo JWT
-        return [200, jwt]
-
+        return [200, userWithoutPassword]
 
     } catch (error) {
         return [400, String(error)]
     }
 
 }
+

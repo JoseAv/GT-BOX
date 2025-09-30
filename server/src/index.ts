@@ -5,7 +5,7 @@ import { loginRouter } from "./login/routes/login.routes.js"
 import { Models, type IModel } from './shared/config/models/unionModel.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import { veryCooki } from "./shared/middleware/verifyCookie.js"
+import { veryCooki } from "./login/middleware/verifyCookie.js"
 
 const Main = async (Models: IModel) => {
     const app = express()

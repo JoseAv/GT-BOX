@@ -30,11 +30,6 @@ export interface saveJWt {
     password?: string
 }
 
-export interface saveJWtWithDate implements saveJWt {
-    loginTime: number,
-    iat: number,
-    exp: number
-}
 
 
 export interface typeLoginDB {
