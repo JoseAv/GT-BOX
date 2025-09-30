@@ -1,9 +1,9 @@
 import { SignJWT, jwtVerify } from "jose";
 import { config } from "../../env/env.js";
-import type { typeLogin } from "../../../login/interfaces/login.js";
+import type { saveJWt, saveJWtWithDate } from "../../../login/interfaces/login.js";
 
 
-export const signToken = async ({ user }: { user: typeLogin }) => {
+export const signToken = async ({ user }: { user: saveJWt }) => {
     try {
         return await new SignJWT({ user, loginTime: Date.now() })
             .setProtectedHeader({ alg: 'HS256' })
@@ -13,14 +13,13 @@ export const signToken = async ({ user }: { user: typeLogin }) => {
     } catch (error) {
         return String(error)
     }
-
-
 }
 
 export const VerifyToken = async ({ jwt }: { jwt: string }) => {
     try {
         const { payload, protectedHeader } = await jwtVerify(jwt, config.secret)
         return payload
+
     } catch (error) {
         return String(error)
     }

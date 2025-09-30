@@ -17,12 +17,25 @@ export interface typeLoginModel {
 
 }
 
-
-
 export interface typeLogin {
     email: string
     password: string
 }
+
+export interface saveJWt {
+    id: number
+    first_name: string,
+    email: string
+    user_name: string
+    password?: string
+}
+
+export interface saveJWtWithDate implements saveJWt {
+    loginTime: number,
+    iat: number,
+    exp: number
+}
+
 
 export interface typeLoginDB {
     first_name: string
@@ -31,7 +44,7 @@ export interface typeLoginDB {
 
 interface responseLogin {
     message: string;
-    data?: typeLogin
+    data?: saveJWt
 
 }
 export type ValidationLogin = [number, responseLogin] // Para errores

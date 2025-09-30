@@ -19,6 +19,7 @@ export class controlLogin {
         const [status, information] = await this.controlModelLogin.login({ user })
         if (status >= 400)
             return res.status(status).json({ ...information })
+
         return res.cookie(config.loginCookie, information, {
             httpOnly: true,
             maxAge: 1000 * 60 * 60,
