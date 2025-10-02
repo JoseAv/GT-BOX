@@ -47,4 +47,14 @@ export class controlLogin {
         return res.status(200).json({ message: 'Sasliendo ...' })
     }
 
+    verifyUser = async (req: Request, res: Response): Promise<Response> => {
+
+        if (!req.session) {
+            return res.status(401).json({ authenticated: false })
+        }
+
+        return res.status(200).json({ ...req.session })
+
+    }
+
 }
