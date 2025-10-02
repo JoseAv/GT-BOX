@@ -40,11 +40,18 @@ export class controlLogin {
         }
     }
 
-
     logout = async (_: Request, res: Response): Promise<Response> => {
         res.clearCookie(config.loginCookie)
         res.clearCookie(config.relogin)
-        return res.status(200).json({ message: 'Sasliendo ...' })
+        return res.status(200).json({ message: 'Saliendo ...' })
+    }
+
+    verifyUser = async (req: Request, res: Response): Promise<Response> => {
+        if (!req.session) {
+            return res.status(401).json({ authenticated: false })
+        }
+
+        return res.status(200).json({ ...req.session })
     }
 
 }
