@@ -22,7 +22,7 @@ class cacheUser {
     }
 
     searchUser = ({ user }: { user: saveJWt }) => {
-        return this.users[user.id] ? true : false
+        return this.users[user.id] ? this.users[user.id] : false
     }
 
 

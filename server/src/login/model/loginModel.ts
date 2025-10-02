@@ -1,4 +1,4 @@
-import type { loginUser } from "../interfaces/login.js";
+import type { loginUser, ValidationLogin } from "../interfaces/login.js";
 import { Validationlogin } from "../validations/loginValidation.js";
 import { RepoLogin } from "../repositories/loginRepo.js";
 
@@ -14,11 +14,11 @@ export class loginModel {
 
     }
 
-    static async refreshUser({ userId }: { userId: number }) {
+    static async refreshUser({ userId }: { userId: number }): Promise<ValidationLogin> {
         try {
             return await RepoLogin.refreshUser({ userId })
         } catch (error) {
-            return [400, String(error)]
+            return [400, { message: 'Error en Db' }]
         }
 
     }
