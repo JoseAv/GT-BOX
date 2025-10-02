@@ -30,6 +30,24 @@ export class RepoLogin {
     }
 
 
+    static async refreshUser({ userId }: { userId: number }): Promise<ValidationLogin> {
+        try {
+            const queryRefresh: Array<ResultDB> = await db.query('SELECT (fn_refresh_user(:userId)) as result;',
+                {
+                    replacements: {
+                        userId: userId
+                    },
+                    type: QueryTypes.SELECT
+                }
+            )
+            if (!queryRefresh || queryRefresh.length === 0 || !queryRefresh[0])
+                return [400, { message: 'Empty Data to show' }]
+            const responseDb = queryRefresh[0].result
+            return [responseDb.http_code, { ...responseDb }]
+        } catch (error) {
+            return [400, { message: String(error) }]
 
+        }
 
+    }
 }

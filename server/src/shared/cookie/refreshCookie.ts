@@ -5,7 +5,16 @@ export const RefreshCookie = async (res: Response, jwt: string) => {
 
     res.cookie(config.relogin, jwt, {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 7
+        maxAge: 1000 * 30
+    })
+
+}
+
+export const accesCookie = async (res: Response, jwt: string) => {
+
+    res.cookie(config.loginCookie, jwt, {
+        httpOnly: true,
+        maxAge: 1000 * 5
     })
 
 }

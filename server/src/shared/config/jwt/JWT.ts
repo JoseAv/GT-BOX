@@ -1,34 +1,44 @@
 import { SignJWT, jwtVerify } from "jose";
 import { config } from "../../env/env.js";
-import type { typeLogin } from "../../../login/interfaces/login.js";
+import type { saveJWt } from "../../../login/interfaces/login.js";
 
 
-export const signToken = async ({ user }: { user: typeLogin }) => {
+export const signTokenAcces = async ({ user }: { user: saveJWt }) => {
     try {
-
-        return await new SignJWT({ user, loginTime: Date.now() })
+        return await new SignJWT({ user })
             .setProtectedHeader({ alg: 'HS256' })
             .setIssuedAt()
-            .setExpirationTime('2h')
+            .setExpirationTime('30s')
             .sign(config.secret)
     } catch (error) {
-        return String(error)
+        console.log(error)
+        return null
     }
-
-
 }
+
+export const signTokenRefresh = async ({ userId }: { userId: number }) => {
+    try {
+        return await new SignJWT({ id: userId })
+            .setProtectedHeader({ alg: 'HS256' })
+            .setIssuedAt()
+            .setExpirationTime('7d')
+            .sign(config.secret)
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
 
 export const VerifyToken = async ({ jwt }: { jwt: string }) => {
     try {
         const { payload, protectedHeader } = await jwtVerify(jwt, config.secret)
         return payload
+
     } catch (error) {
-        return String(error)
+        console.log('Fecha no valida')
+        return null
     }
 
 }
 
-export const tokenDate = async (jwtDate: number) => {
-    const verify = (Date.now() - jwtDate) / (1000 * 60 * 60)
-    return verify < 7 ? true : false
-}
