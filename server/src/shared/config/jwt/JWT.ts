@@ -5,7 +5,7 @@ import type { saveJWt } from "../../../login/interfaces/login.js";
 
 export const signTokenAcces = async ({ user }: { user: saveJWt }) => {
     try {
-        return await new SignJWT({ user })
+        return await new SignJWT({ ...user })
             .setProtectedHeader({ alg: 'HS256' })
             .setIssuedAt()
             .setExpirationTime('30s')
