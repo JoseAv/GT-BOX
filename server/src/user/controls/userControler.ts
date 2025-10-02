@@ -18,6 +18,9 @@ export class userControler implements typeUserControler {
     }
 
     getAllUser = async (req: Request, res: Response): Promise<Response> => {
+        console.log(req.session)
+        if (!req.session)
+            return res.status(400).json('Usuario no aturizado')
         const [status, data] = await this.ModelUser.getAllUser()
         return res.status(status).json({ ...data })
     }

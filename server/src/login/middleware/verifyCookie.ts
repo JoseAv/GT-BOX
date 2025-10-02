@@ -32,13 +32,14 @@ export const veryCooki = async (req: Request, res: Response, next: NextFunction)
 }
 
 export const refreshToken = async (req: Request, res: Response) => {
-
     try {
         // ? 1. Extraemos la cookie y objeto session`
         const cookie = req.cookies[config.relogin]
         req.session = null
-        if (!cookie)
+        if (!cookie) {
             return false
+        }
+
         // ? 2. verificamos que el token funcione
         const verifyJwt = await VerifyToken({ jwt: cookie }) as saveJWt | null
         if (!verifyJwt)
