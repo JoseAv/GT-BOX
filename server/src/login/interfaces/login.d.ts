@@ -17,16 +17,34 @@ export interface typeLoginModel {
 
 }
 
-
-
 export interface typeLogin {
     email: string
     password: string
 }
 
+export interface saveJWt {
+    id: number
+    first_name: string,
+    email: string
+    user_name: string
+    password?: string
+}
+
+
+
+export interface typeLoginDB {
+    first_name: string
+    password: string
+}
+
 interface responseLogin {
     message: string;
-    data?: typeLogin
+    data?: saveJWt
 
 }
 export type ValidationLogin = [number, responseLogin] // Para errores
+
+interface cookieJwt {
+    user: typeLogin
+
+}

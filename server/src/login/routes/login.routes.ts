@@ -8,8 +8,10 @@ export const loginRouter = async ({ loginModel }: { loginModel: typeLoginModel }
     const LoginRoutes = Router()
     const loginControl = new controlLogin({ loginModel })
 
-    LoginRoutes.get('', await loginControl.login)
+    LoginRoutes.post('', await loginControl.login)
     LoginRoutes.get('/logout', await loginControl.logout)
+    LoginRoutes.get('/auth/me', await loginControl.verifyUser)
+
 
     return LoginRoutes
 
