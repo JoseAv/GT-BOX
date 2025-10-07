@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { InfoUser } from "../shared/auth/hooks/InfoUser";
-import { Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
 
 export const ProtectedRouter = (): ReactNode => {
 
@@ -14,7 +14,10 @@ export const ProtectedRouter = (): ReactNode => {
     }
 
     if (!query.data)
-        return <h1>usuario no autenticado</h1>
+        return <Navigate to='/login' replace />
+
+    console.log(query);
+
 
     return <Outlet />
 

@@ -7,7 +7,7 @@ import { CallAuth, PruebaUserCookie } from "../api/CallAuth"
 export const InfoUser = () => {
     const query = useQuery({
         queryKey: ['userInfo'],
-        queryFn: PruebaUserCookie
+        queryFn: CallAuth
     })
     return query
 }

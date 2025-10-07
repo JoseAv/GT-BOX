@@ -11,7 +11,7 @@ export const RefreshCookie = async (res: Response, jwt: string) => {
 }
 
 export const accesCookie = async (res: Response, jwt: string) => {
-
+    console.log('ACCES TOKEN CREADO')
     res.cookie(config.loginCookie, jwt, {
         httpOnly: true,
         maxAge: 1000 * 60 * 60

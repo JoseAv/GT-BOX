@@ -8,7 +8,7 @@ export const signTokenAcces = async ({ user }: { user: saveJWt }) => {
         return await new SignJWT({ ...user })
             .setProtectedHeader({ alg: 'HS256' })
             .setIssuedAt()
-            .setExpirationTime('30s')
+            .setExpirationTime('30m')
             .sign(config.secret)
     } catch (error) {
         console.log(error)
