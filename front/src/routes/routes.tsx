@@ -1,14 +1,13 @@
 import { createBrowserRouter } from "react-router";
 import { ProtectedRouter } from "./protected";
+import { Login } from "../features/login/pages/LoginPages";
 
 
 function Root() {
     return <h1>Hello world</h1>;
 }
 
-function login() {
-    return <h1>Hello Login</h1>;
-}
+
 
 export const router = createBrowserRouter([
     {
@@ -16,7 +15,7 @@ export const router = createBrowserRouter([
         children: [{ path: '/', Component: Root }]
     }, {
         path: "/login",
-        element: login()
+        element: Login()
     }
 ]);
 
