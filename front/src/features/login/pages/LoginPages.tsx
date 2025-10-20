@@ -1,3 +1,4 @@
+import { LoginMain } from '../components/Main'
 import { SectionLogin } from '../components/Section'
 import '../css/page.css'
 
@@ -12,7 +13,7 @@ export const Login = () => {
             <main className='login-main'>
                 <h1>LOGIN</h1>
 
-
+                <LoginMain />
             </main>
 
         </div>
