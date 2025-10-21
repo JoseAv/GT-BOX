@@ -10,11 +10,10 @@ export const Login = () => {
             <section className='login-section'>
                 <SectionLogin />
             </section>
-            <main className='login-main'>
-                <h1>LOGIN</h1>
-
+            <div className='login-main'>
+                <h1 className='text-4xl'>LOGIN - GTBOX</h1>
                 <LoginMain />
-            </main>
+            </div>
 
         </div>
 
