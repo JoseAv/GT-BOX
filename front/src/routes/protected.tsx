@@ -16,9 +16,6 @@ export const ProtectedRouter = (): ReactNode => {
     if (!query.data)
         return <Navigate to='/login' replace />
 
-    console.log(query);
-
-
     return <Outlet />
 
 }

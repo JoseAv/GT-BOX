@@ -38,6 +38,7 @@ export const FormLogin = () => {
                                     placeholder="@gmail.com "
                                     autoComplete="off"
                                     className=" max-w-120"
+                                    type="email"
                                 />
                                 {fieldState.invalid && (
                                     <FieldError errors={[fieldState.error]} />
@@ -61,6 +62,7 @@ export const FormLogin = () => {
                                     placeholder="*********"
                                     autoComplete="off"
                                     className=" max-w-120"
+                                    type="password"
                                 />
                                 {fieldState.invalid && (
                                     <FieldError errors={[fieldState.error]} />
@@ -70,8 +72,8 @@ export const FormLogin = () => {
                     />
 
                     <Field orientation="horizontal" className="flex justify-center">
-                        <Button type="submit" id="login-form" className=" w-full max-w-120">
-                            Submit
+                        <Button type="submit" id="login-button" className=" w-full max-w-120">
+                            Ingresar
                         </Button>
                     </Field>
 
