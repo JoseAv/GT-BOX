@@ -5,7 +5,6 @@
     grid-template-areas:
         "nav"
         "main"
-        "footer ";
 
 }
 
@@ -19,13 +18,12 @@
 
 
     .layout-container {
-        grid-template-columns: repeat(7, 1fr);
+        grid-template-columns: repeat(8, 1fr);
         min-height: 100dvh;
         max-height: 100dvh;
         grid-template-areas:
-            "nav nav nav nav nav nav nav"
-            "aside main main main main main main"
-            "footer footer footer footer footer footer footer";
+            "nav nav nav nav nav nav nav nav"
+            "aside main main main main main main main"
     }
 
     .layout-aside-principal {
@@ -50,12 +48,7 @@
 
 }
 
-
-
-.layout-footer-principal {
-    grid-area: footer;
-}
-
+/* Perfil */
 .logo {
     width: auto;
     height: 4rem;
@@ -70,4 +63,34 @@
     border: 1px solid black;
     border-radius: 100%;
     background: black;
+    cursor: pointer;
+}
+
+.main-perfil {
+    position: relative
+}
+
+.perfil-options {
+    position: absolute;
+    z-index: 10;
+    background: rgba(0, 0, 0, 1);
+    translate: -250px;
+    width: 300px;
+    height: auto;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.perfil-option {
+    border-bottom: 1px solid white;
+    padding: 1rem;
+}
+
+.open {
+    display: block;
+}
+
+.close {
+    display: none;
 }

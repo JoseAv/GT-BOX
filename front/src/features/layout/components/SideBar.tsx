@@ -1,10 +1,19 @@
+import type { ReactNode } from "react"
+import { AdminsSVG, ArrowsSVG, BoxSVG, HomeSVG } from "../svgs/SideBar"
+
+interface typesSideBar {
+    icon: ReactNode
+    href: string
+}
+
+
 export const SideBar = () => {
-    const options: Record<string, string> =
+    const options: Record<string, typesSideBar> =
         {
-            Products: '#',
-            Inicio: '#',
-            Clients: '#',
-            Prices: '#'
+            Inicio: { icon: <HomeSVG />, href: '#' },
+            Prices: { icon: <ArrowsSVG />, href: '#' },
+            Products: { icon: <BoxSVG />, href: '#' },
+            Clients: { icon: <AdminsSVG />, href: '#' },
         } as const
 
     return (
@@ -14,7 +23,12 @@ export const SideBar = () => {
             </h4>
             <ul className="!p-2 w-full">
                 {Object.entries(options).map(([key, value]) => (
-                    <li key={key} className="h-[60px]"><a href={value} className="scroll-m-20 text-xl font-semibold tracking-tight ">{key}</a></li>
+                    <a href={value.href} className=" c ">
+                        <div className="flex items-center gap-3 ">
+                            <div className="flex justify-center items-center h-full">{value.icon}</div>
+                            <li key={key} className="h-20 flex justify-center items-center">{key}</li>
+                        </div>
+                    </a>
                 ))}
             </ul>
         </>

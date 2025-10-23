@@ -1,6 +1,9 @@
+import { useState } from 'react'
 import '../layout.css'
 
 export const Navbar = () => {
+    const [open, setOpen] = useState<boolean>(false)
+    const show = open ? 'open' : 'close'
 
     return (
         <>
@@ -16,7 +19,14 @@ export const Navbar = () => {
 
             </div>
 
-            <div className='perfil'></div>
+            <div className='main-perfil'>
+                <div className='perfil' onClick={() => setOpen((open) => !open)}></div>
+                <ul className={`perfil-options ${show}`}  >
+                    <a href="#" ><li className='text-xl font-medium text-slate-400 perfil-option'>Cerrar session</li></a>
+                    <a href="#" ><li className='text-xl font-medium text-slate-400 perfil-option'>Cerrar session</li></a>
+                    <a href="#" ><li className='text-xl font-medium text-slate-400 perfil-option'>Cerrar session</li></a>
+                </ul>
+            </div>
 
         </>
 

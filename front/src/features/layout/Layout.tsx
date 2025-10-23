@@ -9,8 +9,5 @@ export const Layout = (children: ReactNode) => {
         <nav className='layout-nav-principal flex'><Navbar /></nav>
         <aside className='layout-aside-principal '><SideBar /></aside>
         <main className='layout-main bg-red-500 layout-main-principal'>{children}</main>
-        <footer className='layout-footer-principal'>
-            <h1 className='bg-purple-300'>Footer</h1>
-        </footer>
     </div>
 }
