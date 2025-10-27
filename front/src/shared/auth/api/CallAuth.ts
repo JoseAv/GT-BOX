@@ -1,4 +1,4 @@
-import type { authUser } from "../interfaces/Auth"
+import type { authUser, sendInfoLogin } from "../interfaces/Auth"
 
 export const CallAuth = async (): Promise<boolean | authUser> => {
     try {
@@ -6,20 +6,21 @@ export const CallAuth = async (): Promise<boolean | authUser> => {
             method: 'GET',
             credentials: 'include'
         })
-        const user = ResponseUser.json()
-        return user
+
+        if (!ResponseUser.ok) {
+            throw new Error('Error en refresh Session')
+        }
+
+        return ResponseUser.json()
     } catch (error) {
-        console.log('FETCH DENTRO DE USUARIO', error)
-        return false
+        console.error('FETCH DENTRO DE USUARIO', error)
+        throw new Error(String(error))
     }
 }
 
 
-export const PruebaUserCookie = async (): Promise<boolean | authUser> => {
-    const data = {
-        email: "miguel@gmail.com",
-        password: "jose123"
-    }
+export const LoginUser = async ({ user }: { user: sendInfoLogin }): Promise<boolean | authUser> => {
+
     try {
         const ResponseUser = await fetch('http://localhost:3000/login', {
             method: 'POST',
@@ -27,16 +28,14 @@ export const PruebaUserCookie = async (): Promise<boolean | authUser> => {
             headers: {
                 'CONTENT-TYPE': 'application/json',
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(user)
         })
         if (!ResponseUser.ok)
-            return false
+            throw new Error('Error en logiar al usuario')
 
-        const user = ResponseUser.json()
-        return user
+        return await ResponseUser.json()
     } catch (error) {
-        console.log('FETCH DENTRO DE USUARIO', error)
-        return false
+        throw new Error(String(error))
     }
 }
 
@@ -48,9 +47,9 @@ export const LogOut = async (): Promise<boolean | authUser> => {
             credentials: 'include',
         })
         console.log('LOGOUT', ResponseUser)
-        return false
+        return await ResponseUser.json()
     } catch (error) {
-        console.log('FETCH DENTRO DE USUARIO', error)
-        return false
+        console.error('FETCH DENTRO DE USUARIO', error)
+        throw new Error(String(error))
     }
 }

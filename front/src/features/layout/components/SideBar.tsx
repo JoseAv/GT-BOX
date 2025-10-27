@@ -21,7 +21,7 @@ export const SideBar = () => {
             <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
                 GT BOX
             </h4>
-            <ul className="!p-2 w-full">
+            <ul className="p-2 w-full">
                 {Object.entries(options).map(([key, value]) => (
                     <a href={value.href} className=" c ">
                         <div className="flex items-center gap-3 ">

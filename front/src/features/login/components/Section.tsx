@@ -1,5 +1,5 @@
 import '../css/page.css'
-import LogicSvg from '../../../../../design/svgs/Logic.svg'
+import LogicSvg from '../../../../design/svgs/Logic.svg'
 export const SectionLogin = () => {
 
     return (

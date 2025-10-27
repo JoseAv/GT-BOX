@@ -11,3 +11,8 @@ export interface authUser {
     user_name: string
     password?: string
 }
+
+export interface sendInfoLogin {
+    email: string,
+    password: string
+}

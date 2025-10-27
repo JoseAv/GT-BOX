@@ -13,8 +13,9 @@ const Main = async (Models: IModel) => {
     app.use(cookieParser())
     app.use(veryCooki)
     app.use(cors({
-        origin: 'http://localhost:5173', // URL exacta de tu frontend
-        credentials: true // Permite enviar/recibir cookies
+        origin: 'http://localhost:5173',
+        credentials: true,
+
     }));
     app.use('/user', await userRouter(Models.userModel))
     app.use('/login', await loginRouter({ loginModel: Models.loginModel }))

@@ -5,8 +5,11 @@ import type z from "zod"
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { LoginUser } from "@/shared/auth/api/CallAuth"
+import { useNavigate } from "react-router"
 
 export const FormLogin = () => {
+    const navigate = useNavigate();
     const loginForm = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -15,19 +18,30 @@ export const FormLogin = () => {
         },
     })
 
-    function onSubmit(data: z.infer<typeof formSchema>) {
-        console.log(data)
+    async function onSubmit(user: z.infer<typeof formSchema>) {
+        try {
+            await LoginUser({ user })
+            navigate('/dashboard', { replace: true });
+        } catch (error) {
+            const fields = ['email', 'password'] as const
+            for (let field of fields) {
+                loginForm.setError(field, { type: 'manual', message: 'Usuario no Existe' })
+            }
+        } finally {
+            console.log('Fin Del SPINNER')
+        }
     }
+
 
     return (
         <>
-            <form id="login-form" onSubmit={loginForm.handleSubmit(onSubmit)} className="w-full  ">
-                <FieldGroup className="w-full h-ull">
+            <form id="login-form" onSubmit={loginForm.handleSubmit(onSubmit)} className="w-full">
+                <FieldGroup className="w-full h-ull  flex flex-col justify-center items-center">
                     <Controller
                         name="email"
                         control={loginForm.control}
                         render={({ field, fieldState }) => (
-                            <Field data-invalid={fieldState.invalid} className="flex items-center justify-items-center justify-center">
+                            <Field data-invalid={fieldState.invalid} className="flex items-center justify-center">
                                 <FieldLabel htmlFor="input-email" className=" sm:text-2xl text-lg flex justify-center">
                                     Email
                                 </FieldLabel>

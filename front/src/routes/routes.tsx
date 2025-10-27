@@ -4,18 +4,18 @@ import { Login } from "../features/login/pages/LoginPages";
 import { Layout } from "@/features/layout/Layout";
 
 
-function Root() {
-    return <h1>Hello world</h1>;
-}
 
 export const router = createBrowserRouter([
     {
+        path: '/',
         element: (<ProtectedRouter />),
-        children: [{ path: '/', Component: Root }]
+        children: [{
+            element: <Layout />,
+            children: [{ path: 'dashboard', element: <Login /> }]
+        }]
     }, {
         path: "/login",
-        // element: Login()
-        element: Layout(<h1>hola</h1>)
+        element: Login()
     }
 ]);
 
