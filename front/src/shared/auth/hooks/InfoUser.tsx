@@ -1,10 +1,23 @@
-import { useQuery } from "@tanstack/react-query"
-import { CallAuth, PruebaUserCookie } from "../api/CallAuth"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { CallAuth } from "../api/CallAuth"
 
 export const InfoUser = () => {
-    const query = useQuery({
+    const { status, data, error, refetch, isPending } = useQuery({
         queryKey: ['userInfo'],
-        queryFn: CallAuth
+        queryFn: async () => {
+            return await CallAuth()
+        },
     })
-    return query
+    return { status, data, error, refetch, isPending }
+}
+
+
+export const LogOut = () => {
+    const infoUser = useQueryClient()
+    const logOut = async () => {
+        await logOut()
+        infoUser.removeQueries({ queryKey: ['userInfo'] })
+    }
+
+    return logOut
 }
