@@ -13,7 +13,7 @@ export const SideBar = () => {
             Inicio: { icon: <HomeSVG />, href: '#' },
             Prices: { icon: <ArrowsSVG />, href: '#' },
             Products: { icon: <BoxSVG />, href: '#' },
-            Clients: { icon: <AdminsSVG />, href: '#' },
+            User: { icon: <AdminsSVG />, href: '#' },
         } as const
 
     return (
@@ -23,7 +23,7 @@ export const SideBar = () => {
             </h4>
             <ul className="p-2 w-full">
                 {Object.entries(options).map(([key, value]) => (
-                    <a href={value.href} className=" c ">
+                    <a href={value.href} key={key}>
                         <div className="flex items-center gap-3 ">
                             <div className="flex justify-center items-center h-full">{value.icon}</div>
                             <li key={key} className="h-20 flex justify-center items-center">{key}</li>
