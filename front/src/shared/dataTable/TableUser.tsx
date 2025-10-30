@@ -2,12 +2,14 @@ import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { userLinks } from '@/features/user/page/main';
 import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react';
+import { useNavigate } from 'react-router';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
-    data: TData[]
+    data: TData[],
 }
 
 
@@ -15,8 +17,7 @@ export function DataTable<TData, TValue>({
     columns,
     data,
 }: DataTableProps<TData, TValue>) {
-    // console.log(data)
-    // console.log(columns)
+    const navigate = useNavigate();
 
     const table = useReactTable({
         data,
@@ -25,19 +26,22 @@ export function DataTable<TData, TValue>({
     })
 
 
-
-
     return (
         <div className="w-full">
             <div className="flex items-center py-4">
-                <Input
-                    placeholder="Filter emails..."
-                    value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn("email")?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                />
+                <div className='flex gap-4'>
+                    <Input
+                        placeholder="Filter emails..."
+                        value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+                        onChange={(event) =>
+                            table.getColumn("email")?.setFilterValue(event.target.value)
+                        }
+                        className="max-w-sm"
+                    />
+                    <Button variant="default" className="ml-auto" onClick={() => navigate(userLinks.CreateUser)}>
+                        Create
+                    </Button>
+                </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" className="ml-auto">

@@ -3,6 +3,11 @@ import type { ColumnDef } from "@tanstack/react-table"
 import type { user } from "../interfaces/user"
 import { DataTable } from "@/shared/dataTable/TableUser"
 
+export const userLinks = {
+    CreateUser: '/user/create',
+    EditUser: '/user/edit/'
+} as const
+
 export const PageUsers = () => {
     const { data, error, isPending } = AllUser()
     if (isPending) {
@@ -16,12 +21,12 @@ export const PageUsers = () => {
 
     const formatHeader = (key: string): string => {
         return key
-            .split('_')                           // Divide por underscore
+            .split('_')
             .map(word =>
-                word.charAt(0).toUpperCase() +    // Primera letra mayúscula
-                word.slice(1).toLowerCase()        // Resto en minúscula
+                word.charAt(0).toUpperCase() +
+                word.slice(1).toLowerCase()
             )
-            .join(' ');                           // Une con espacio
+            .join(' ');
     }
 
     const columns: ColumnDef<user>[] = Object.keys(Object.values(data.data)[0]).map((value) => (
@@ -30,13 +35,13 @@ export const PageUsers = () => {
             header: formatHeader(value),
         }
     ))
-    const userData = Object.values(data.data).map((value) => value)
 
+    const userData: user[] = Object.values(data.data).map((value) => value)
     return (
 
-        <div className="container mx-auto py-10">
-            <DataTable columns={columns} data={userData} />
-        </div>
+        <main className="container mx-auto py-10">
+            <DataTable<user, any> columns={columns} data={userData} />
+        </main>
     )
 
 }
