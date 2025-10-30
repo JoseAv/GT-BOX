@@ -16,4 +16,17 @@ export const ValuesKeys = {
     email: "email",
 } as const
 
+// Formatiar Campos para verse mejor
+export const formatHeader = (key: string): string => {
+    return key
+        .split('_')
+        .map(word =>
+            word.charAt(0).toUpperCase() +
+            word.slice(1).toLowerCase()
+        )
+        .join(' ');
+}
+
+
+
 export type TypeKeys = keyof typeof ValuesKeys;

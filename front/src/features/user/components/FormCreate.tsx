@@ -10,10 +10,35 @@ import { dateIterar, type TypeKeys } from "../util/dataForm"
 import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { ChevronDownIcon } from "lucide-react"
-import React from "react"
+import { ChevronDownIcon, Variable } from "lucide-react"
+import React, { useState } from "react"
+import { useMutation } from "@tanstack/react-query"
+import { CreateUser } from "../api/user"
+import { toast } from "sonner"
+import { Toaster } from "@/components/ui/sonner"
+
 export const FormCreateUser = () => {
     const navigate = useNavigate();
+    const [showError, setError] = useState(false)
+
+    const mutation = useMutation({
+        mutationFn: CreateUser,
+        onError: (error, variables, onMutateResult, context) => {
+            console.log(error)
+            console.log(context)
+            console.log(variables)
+            console.log(onMutateResult)
+            toast.error(error.message)
+            setError(true)
+        },
+        onSettled: (data, error, variables, onMutateResult, context) => {
+            // Error or success... doesn't matter!
+            // console.log(data)
+            // console.log(error)
+            // console.log(variables)
+        },
+    })
+
     const [open, setOpen] = React.useState(false)
     const loginForm = useForm<z.infer<typeof createFormSchema>>({
         resolver: zodResolver(createFormSchema),
@@ -28,12 +53,13 @@ export const FormCreateUser = () => {
         }
     })
     async function onSubmit(user: z.infer<typeof createFormSchema>) {
-        console.log(user)
+        mutation.mutate(user)
     }
-
 
     return (
         <>
+            {showError ? <Toaster richColors position="top-right" /> : null}
+
             <form id="login-form" onSubmit={loginForm.handleSubmit(onSubmit)} className="w-full ">
                 <FieldGroup className="w-full h-ull flex sm:grid sm:grid-cols-2 items-center justify-center">
                     {Object.entries(dateIterar).map(([key, value]) => {
@@ -70,24 +96,24 @@ export const FormCreateUser = () => {
                         name='date_of_birth'
                         control={loginForm.control}
                         render={({ field, fieldState }) => (
-                            <div className="flex flex-col gap-3">
+                            <div className="flex flex-col gap-3 justify-center items-center">
                                 <Label htmlFor="date" className=" sm:text-2xl text-lg flex justify-center">
                                     Date of birth
                                 </Label>
                                 <Popover open={open} onOpenChange={setOpen} >
-                                    <PopoverTrigger asChild className="w-full ">
+                                    <PopoverTrigger asChild className="w-48">
                                         <Button
                                             variant="outline"
                                             id="date"
-                                            className="justify-between font-normal w-auto sm:col-span-2"
+                                            className="font-normal max-w-120 w-full"
                                         >
                                             {field.value ? field.value.toLocaleDateString() : "Select date"}
                                             <ChevronDownIcon />
                                         </Button>
                                     </PopoverTrigger>
-                                    <PopoverContent className="w-full overflow-hidden p-0" align="start">
+                                    <PopoverContent className="w-auto overflow-hidden p-0" align="start">
                                         <Calendar
-                                            className="w-full"
+                                            className="max-w-120 w-full"
                                             mode="single"
                                             selected={field.value}
                                             captionLayout="dropdown"
@@ -106,9 +132,6 @@ export const FormCreateUser = () => {
                         }
 
                     />
-
-
-
                     <Field orientation="horizontal" className="flex justify-center w-full sm:col-span-2">
                         <Button type="submit" id="login-button" className=" w-full max-w-120">
                             Crear Usuario
@@ -117,8 +140,6 @@ export const FormCreateUser = () => {
 
 
                 </FieldGroup>
-
-
             </form >
 
 

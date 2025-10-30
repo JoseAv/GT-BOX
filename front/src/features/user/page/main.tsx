@@ -1,8 +1,9 @@
-import { AllUser } from "../hooks/fechUser"
+import { AllUser } from "../context/fechUser"
 import type { ColumnDef } from "@tanstack/react-table"
 import type { user } from "../interfaces/user"
 import { DataTable } from "@/shared/dataTable/TableUser"
 import { Button } from "@/components/ui/button"
+import { formatHeader } from "../util/dataForm"
 
 export const userLinks = {
     CreateUser: '/user/create',
@@ -13,23 +14,10 @@ export const userLinks = {
 
 export const PageUsers = () => {
     const { data, error, isPending } = AllUser()
-    if (isPending) {
-        return <h1>Cargando</h1>
-    }
+
 
     if (error || !data || !data.data) {
         return <h1>Error</h1>
-    }
-
-
-    const formatHeader = (key: string): string => {
-        return key
-            .split('_')
-            .map(word =>
-                word.charAt(0).toUpperCase() +
-                word.slice(1).toLowerCase()
-            )
-            .join(' ');
     }
 
     const columns: ColumnDef<user>[] = Object.keys(Object.values(data.data)[0]).map((value) => (
@@ -47,7 +35,12 @@ export const PageUsers = () => {
     return (
 
         <main className="container mx-auto py-10">
-            <DataTable<user, any> columns={columns} data={userData} links={userLinks} />
+            {isPending && <h1>Cargando</h1>}
+            {error && <h1>Error</h1>}
+            {!isPending && !error && userData.length > 0 && (
+                <DataTable<user, any> columns={columns} data={userData} links={userLinks} />
+            )}
+
         </main>
     )
 

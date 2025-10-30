@@ -10,3 +10,5 @@ export const AllUser = () => {
     })
     return { status, data, error, refetch, isPending }
 }
+
+
