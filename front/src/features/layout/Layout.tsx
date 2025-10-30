@@ -8,6 +8,6 @@ export const Layout = () => {
     return <div className='layout-container'>
         <nav className='layout-nav-principal flex'><Navbar /></nav>
         <aside className='layout-aside-principal '><SideBar /></aside>
-        <main className='layout-main bg-red-500 layout-main-principal'><Outlet /></main>
+        <main className='layout-main layout-main-principal'><Outlet /></main>
     </div>
 }
