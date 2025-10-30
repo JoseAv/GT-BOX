@@ -1,6 +1,10 @@
+import { FormCreateUser } from "../components/FormCreate"
+
 export const CreateUser = () => {
 
     return (
-        <h1>Hola Creando Usuario</h1>
+        <div>
+            <FormCreateUser />
+        </div>
     )
 }

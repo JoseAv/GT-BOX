@@ -1,11 +1,13 @@
 import * as z from "zod"
 
-export const formSchema = z.object({
+export const createFormSchema = z.object({
     email: z
         .email(),
     password: z
         .string()
         .min(4, "You must type min 4"),
+    first_name: z.string(),
+    first_last_name: z.string(),
     second_name: z.string().min(3, "You must type min 3"),
     user_name: z.string().min(3, 'you must type min 3'),
     date_of_birth: z.date(),
