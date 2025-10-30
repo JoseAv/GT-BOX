@@ -2,10 +2,13 @@ import { AllUser } from "../hooks/fechUser"
 import type { ColumnDef } from "@tanstack/react-table"
 import type { user } from "../interfaces/user"
 import { DataTable } from "@/shared/dataTable/TableUser"
+import { Button } from "@/components/ui/button"
 
 export const userLinks = {
     CreateUser: '/user/create',
-    EditUser: '/user/edit/'
+    EditUser: '/user/edit/',
+    nameCreate: 'Crear Usuario',
+    nameEdit: 'Editar'
 } as const
 
 export const PageUsers = () => {
@@ -33,6 +36,10 @@ export const PageUsers = () => {
         {
             accessorKey: value,
             header: formatHeader(value),
+            cell: ({ row }) => {
+                const information = String(row.getValue(value))
+                return value === 'is_active' ? <Button onClick={() => console.log(row.original)}>Editar</Button> : <div>{information}</div>
+            },
         }
     ))
 
@@ -40,7 +47,7 @@ export const PageUsers = () => {
     return (
 
         <main className="container mx-auto py-10">
-            <DataTable<user, any> columns={columns} data={userData} />
+            <DataTable<user, any> columns={columns} data={userData} links={userLinks} />
         </main>
     )
 

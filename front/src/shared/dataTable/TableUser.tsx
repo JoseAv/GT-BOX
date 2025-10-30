@@ -10,12 +10,14 @@ import { useNavigate } from 'react-router';
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[],
+    links: Record<string, string>
 }
 
 
 export function DataTable<TData, TValue>({
     columns,
     data,
+    links,
 }: DataTableProps<TData, TValue>) {
     const navigate = useNavigate();
 
@@ -38,8 +40,8 @@ export function DataTable<TData, TValue>({
                         }
                         className="max-w-sm"
                     />
-                    <Button variant="default" className="ml-auto" onClick={() => navigate(userLinks.CreateUser)}>
-                        Create
+                    <Button variant="default" className="ml-auto" onClick={() => navigate(links.CreateUser)}>
+                        {links.nameCreate}
                     </Button>
                 </div>
                 <DropdownMenu>
