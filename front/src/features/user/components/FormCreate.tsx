@@ -10,36 +10,30 @@ import { dateIterar, type TypeKeys } from "../util/dataForm"
 import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { ChevronDownIcon, Variable } from "lucide-react"
-import React, { useState } from "react"
+import { ChevronDownIcon } from "lucide-react"
 import { useMutation } from "@tanstack/react-query"
 import { CreateUser } from "../api/user"
-import { toast } from "sonner"
 import { Toaster } from "@/components/ui/sonner"
+import { useNotificationStore } from "@/shared/notifications/Notifications"
+import { useState } from "react"
 
 export const FormCreateUser = () => {
+    const handleUpdate = useNotificationStore((state) => state.updateCount)
     const navigate = useNavigate();
     const [showError, setError] = useState(false)
 
     const mutation = useMutation({
         mutationFn: CreateUser,
-        onError: (error, variables, onMutateResult, context) => {
-            console.log(error)
-            console.log(context)
-            console.log(variables)
-            console.log(onMutateResult)
-            toast.error(error.message)
+        onError: () => {
             setError(true)
         },
-        onSettled: (data, error, variables, onMutateResult, context) => {
-            // Error or success... doesn't matter!
-            // console.log(data)
-            // console.log(error)
-            // console.log(variables)
+        onSuccess: () => {
+            handleUpdate()
+            navigate('/user')
         },
     })
 
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = useState(false)
     const loginForm = useForm<z.infer<typeof createFormSchema>>({
         resolver: zodResolver(createFormSchema),
         defaultValues: {
@@ -60,8 +54,9 @@ export const FormCreateUser = () => {
         <>
             {showError ? <Toaster richColors position="top-right" /> : null}
 
-            <form id="login-form" onSubmit={loginForm.handleSubmit(onSubmit)} className="w-full ">
-                <FieldGroup className="w-full h-ull flex sm:grid sm:grid-cols-2 items-center justify-center">
+
+            <form id="login-form" onSubmit={loginForm.handleSubmit(onSubmit)} className="">
+                <FieldGroup className=" h-ull flex sm:grid lg:grid-cols-3 sm:grid-cols-2 items-center justify-center">
                     {Object.entries(dateIterar).map(([key, value]) => {
                         return (
                             <Controller
@@ -132,7 +127,7 @@ export const FormCreateUser = () => {
                         }
 
                     />
-                    <Field orientation="horizontal" className="flex justify-center w-full sm:col-span-2">
+                    <Field orientation="horizontal" className="flex justify-center w-full sm:col-span-2 lg:col-span-3">
                         <Button type="submit" id="login-button" className=" w-full max-w-120">
                             Crear Usuario
                         </Button>
