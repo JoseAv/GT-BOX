@@ -24,3 +24,5 @@ export const createFormSchema = z.object({
     }
     return year < 18 ? false : true
 }, { path: ['date_of_birth'], message: 'From date must be before to date' })
+
+export const updateSchema = createFormSchema.partial()

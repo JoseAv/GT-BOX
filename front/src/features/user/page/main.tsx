@@ -4,6 +4,7 @@ import type { user } from "../interfaces/user"
 import { DataTable } from "@/shared/dataTable/TableUser"
 import { Button } from "@/components/ui/button"
 import { formatHeader } from "../util/dataForm"
+import { useNavigate } from "react-router"
 
 export const userLinks = {
     CreateUser: '/user/create',
@@ -14,6 +15,7 @@ export const userLinks = {
 
 export const PageUsers = () => {
     const { data, error, isPending } = AllUser()
+    const navigate = useNavigate()
 
 
     if (error || !data || !data.data) {
@@ -26,7 +28,7 @@ export const PageUsers = () => {
             header: formatHeader(value),
             cell: ({ row }) => {
                 const information = String(row.getValue(value))
-                return value === 'is_active' ? <Button onClick={() => console.log(row.original)}>Editar</Button> : <div>{information}</div>
+                return value === 'is_active' ? <Button onClick={() => navigate('/user/edit', { state: { data: row.original } })}>Editar</Button> : <div>{information}</div>
             },
         }
     ))
