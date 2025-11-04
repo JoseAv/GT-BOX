@@ -30,7 +30,8 @@ export const CreateUser = async (user: z.infer<typeof createFormSchema>): Promis
             throw new Error(errorData.message || 'Error al crear usuario')
         }
 
-        return await ResponseUser.json()
+        const result = await ResponseUser.json()
+        return result
     } catch (error) {
         console.error('FETCH DENTRO DE USUARIO', error)
         throw new Error(String(error))

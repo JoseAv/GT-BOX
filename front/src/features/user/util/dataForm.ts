@@ -1,4 +1,4 @@
-export const dateIterar = {
+export const dateIterar: formUser = {
     first_name: { htmlFor: 'input-first_name', placeholder: 'Escribe tu nombre', type: 'text', name: 'First Name', class: 'grid-cols-2' },
     second_name: { htmlFor: 'input-second_name', placeholder: 'Escribe tu segundo nombre', type: 'text', name: 'Second Name' },
     first_last_name: { htmlFor: 'input-first_last_name', placeholder: 'Escribe tu apellido', type: 'text', name: 'Last Name' },
@@ -30,3 +30,56 @@ export const formatHeader = (key: string): string => {
 
 
 export type TypeKeys = keyof typeof ValuesKeys;
+
+
+export interface formUser {
+    first_name: FirstName
+    second_name: SecondName
+    first_last_name: FirstLastName
+    password: Password
+    user_name: UserName
+    email: Email
+}
+
+export interface FirstName {
+    htmlFor: string
+    placeholder: string
+    type: string
+    name: string
+    class: string
+}
+
+export interface SecondName {
+    htmlFor: string
+    placeholder: string
+    type: string
+    name: string
+}
+
+export interface FirstLastName {
+    htmlFor: string
+    placeholder: string
+    type: string
+    name: string
+}
+
+export interface Password {
+    htmlFor: string
+    placeholder: string
+    type: string
+    name: string
+}
+
+export interface UserName {
+    htmlFor: string
+    placeholder: string
+    type: string
+    name: string
+}
+
+export interface Email {
+    htmlFor: string
+    placeholder: string
+    type: string
+    name: string
+}

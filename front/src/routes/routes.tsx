@@ -3,7 +3,7 @@ import { ProtectedRouter } from "./protected";
 import { Login } from "../features/login/pages/LoginPages";
 import { Layout } from "@/features/layout/Layout";
 import { PageUsers } from "@/features/user/page/main";
-import { CreateUser } from "@/features/user/page/createUser";
+import { CreateUserPage } from "@/features/user/page/CreateUserPage";
 
 
 
@@ -15,8 +15,7 @@ export const router = createBrowserRouter([
             element: <Layout />,
             children: [
                 { path: 'user', element: <PageUsers /> },
-                { path: 'user/create', element: < CreateUser /> },
-                { path: 'user/create', element: < CreateUser /> },
+                { path: 'user/create', element: < CreateUserPage /> },
 
             ]
         }]

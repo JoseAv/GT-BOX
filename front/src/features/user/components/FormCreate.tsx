@@ -1,29 +1,36 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Controller, useForm } from "react-hook-form"
-import type z from "zod"
+import { Controller, type FieldValues, type Path, type UseFormReturn } from "react-hook-form"
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useNavigate } from "react-router"
-import { createFormSchema } from "../schemas/validationCreate"
-import { dateIterar, type TypeKeys } from "../util/dataForm"
 import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { ChevronDownIcon } from "lucide-react"
 import { useMutation } from "@tanstack/react-query"
-import { CreateUser } from "../api/user"
 import { Toaster } from "@/components/ui/sonner"
 import { useNotificationStore } from "@/shared/notifications/Notifications"
 import { useState } from "react"
+import type { ResponseServer } from "../interfaces/user"
 
-export const FormCreateUser = () => {
+interface FormCreateUserProps<T extends FieldValues, D extends Record<string, any>> {
+    apiData: (user: T) => Promise<ResponseServer>,
+    loginForm: UseFormReturn<T>,
+    dateIterar: D
+}
+
+export const FormCreateUser = <T extends FieldValues, D extends Record<string, any>>({
+    apiData,
+    loginForm,
+    dateIterar
+}: FormCreateUserProps<T, D>) => {
     const handleUpdate = useNotificationStore((state) => state.updateCount)
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false)
     const [showError, setError] = useState(false)
 
     const mutation = useMutation({
-        mutationFn: CreateUser,
+        mutationFn: apiData,
         onError: () => {
             setError(true)
         },
@@ -33,20 +40,8 @@ export const FormCreateUser = () => {
         },
     })
 
-    const [open, setOpen] = useState(false)
-    const loginForm = useForm<z.infer<typeof createFormSchema>>({
-        resolver: zodResolver(createFormSchema),
-        defaultValues: {
-            first_name: "",
-            second_name: "",
-            first_last_name: "",
-            password: "",
-            user_name: "",
-            email: "",
-            date_of_birth: new Date()
-        }
-    })
-    async function onSubmit(user: z.infer<typeof createFormSchema>) {
+
+    async function onSubmit(user: T) {
         mutation.mutate(user)
     }
 
@@ -54,14 +49,13 @@ export const FormCreateUser = () => {
         <>
             {showError ? <Toaster richColors position="top-right" /> : null}
 
-
             <form id="login-form" onSubmit={loginForm.handleSubmit(onSubmit)} className="max-w-5xl flex justify-center  items-center w-full">
                 <FieldGroup className=" grid w-full grid-cols-1 items-center justify-center sm:grid-cols-2">
                     {Object.entries(dateIterar).map(([key, value]) => {
                         return (
                             <Controller
                                 key={value.htmlFor}
-                                name={key as TypeKeys}
+                                name={key as Path<T>}
                                 control={loginForm.control}
                                 render={({ field, fieldState }) => (
                                     <Field data-invalid={fieldState.invalid} className="flex items-center justify-center w-full">
@@ -88,7 +82,7 @@ export const FormCreateUser = () => {
                     })}
 
                     <Controller
-                        name='date_of_birth'
+                        name={'date_of_birth' as Path<T>}
                         control={loginForm.control}
                         render={({ field, fieldState }) => (
                             <div className="flex flex-col gap-3 justify-center items-center">
