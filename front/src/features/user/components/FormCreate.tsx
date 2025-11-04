@@ -55,8 +55,8 @@ export const FormCreateUser = () => {
             {showError ? <Toaster richColors position="top-right" /> : null}
 
 
-            <form id="login-form" onSubmit={loginForm.handleSubmit(onSubmit)} className="">
-                <FieldGroup className=" h-ull flex sm:grid lg:grid-cols-3 sm:grid-cols-2 items-center justify-center">
+            <form id="login-form" onSubmit={loginForm.handleSubmit(onSubmit)} className="max-w-5xl flex justify-center  items-center w-full">
+                <FieldGroup className=" grid w-full grid-cols-1 items-center justify-center sm:grid-cols-2">
                     {Object.entries(dateIterar).map(([key, value]) => {
                         return (
                             <Controller
@@ -74,7 +74,7 @@ export const FormCreateUser = () => {
                                             aria-invalid={fieldState.invalid}
                                             placeholder={value.placeholder}
                                             autoComplete="off"
-                                            className=" max-w-120"
+                                            className="h-13"
                                             type={value.type}
                                         />
                                         {fieldState.invalid && (
@@ -100,7 +100,7 @@ export const FormCreateUser = () => {
                                         <Button
                                             variant="outline"
                                             id="date"
-                                            className="font-normal max-w-120 w-full"
+                                            className="font-normal max-w-120 w-full h-13"
                                         >
                                             {field.value ? field.value.toLocaleDateString() : "Select date"}
                                             <ChevronDownIcon />
@@ -127,8 +127,8 @@ export const FormCreateUser = () => {
                         }
 
                     />
-                    <Field orientation="horizontal" className="flex justify-center w-full sm:col-span-2 lg:col-span-3">
-                        <Button type="submit" id="login-button" className=" w-full max-w-120">
+                    <Field className="flex justify-center w-full items-center sm:col-span-2">
+                        <Button type="submit" id="login-button" className=" w-full max-w-120 h-12 text-xl">
                             Crear Usuario
                         </Button>
                     </Field>

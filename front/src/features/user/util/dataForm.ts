@@ -1,5 +1,5 @@
 export const dateIterar = {
-    first_name: { htmlFor: 'input-first_name', placeholder: 'Escribe tu nombre', type: 'text', name: 'First Name' },
+    first_name: { htmlFor: 'input-first_name', placeholder: 'Escribe tu nombre', type: 'text', name: 'First Name', class: 'grid-cols-2' },
     second_name: { htmlFor: 'input-second_name', placeholder: 'Escribe tu segundo nombre', type: 'text', name: 'Second Name' },
     first_last_name: { htmlFor: 'input-first_last_name', placeholder: 'Escribe tu apellido', type: 'text', name: 'Last Name' },
     password: { htmlFor: 'input-password', placeholder: '*******', type: 'password', name: 'Password' },
