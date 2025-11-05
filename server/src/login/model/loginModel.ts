@@ -3,8 +3,6 @@ import { Validationlogin } from "../validations/loginValidation.js";
 import { RepoLogin } from "../repositories/loginRepo.js";
 
 export class loginModel {
-
-
     static async login({ user }: { user: loginUser }) {
         try {
             return await Validationlogin({ user })
