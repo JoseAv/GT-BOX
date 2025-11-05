@@ -17,6 +17,7 @@ export const getAllUser = async (): Promise<ResponseServer> => {
 
 
 export const CreateUser = async (user: z.infer<typeof createFormSchema>): Promise<ResponseServer> => {
+    console.log(user)
     try {
         const ResponseUser = await fetch('http://localhost:3000/user/create', {
             method: 'POST',
@@ -41,9 +42,10 @@ export const CreateUser = async (user: z.infer<typeof createFormSchema>): Promis
 
 
 export const UpdateUser = async (user: z.infer<typeof updateSchema>): Promise<ResponseServer> => {
+    console.log('Password', user)
     try {
-        const ResponseUser = await fetch('http://localhost:3000/user/create', {
-            method: 'POST',
+        const ResponseUser = await fetch('http://localhost:3000/user/update', {
+            method: 'PATCH',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user)
@@ -57,7 +59,8 @@ export const UpdateUser = async (user: z.infer<typeof updateSchema>): Promise<Re
         const result = await ResponseUser.json()
         return result
     } catch (error) {
-        console.error('FETCH DENTRO DE USUARIO', error)
+        console.log(error)
+
         throw new Error(String(error))
     }
 }

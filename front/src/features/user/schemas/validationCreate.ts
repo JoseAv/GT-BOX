@@ -13,6 +13,7 @@ export const createFormSchema = z.object({
     date_of_birth: z.date(),
 
 }).refine((data) => {
+    console.log(data)
     const birthDate = data.date_of_birth
     const today = new Date();
     let year = today.getFullYear() - birthDate.getFullYear()
@@ -25,4 +26,7 @@ export const createFormSchema = z.object({
     return year < 18 ? false : true
 }, { path: ['date_of_birth'], message: 'From date must be before to date' })
 
-export const updateSchema = createFormSchema.partial()
+export const updateSchema = createFormSchema.omit({ password: true }).partial().safeExtend({
+    id: z.number(),
+    password: z.string().min(4, "You must type min 4").optional(),
+})

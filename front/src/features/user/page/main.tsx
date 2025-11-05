@@ -28,7 +28,7 @@ export const PageUsers = () => {
             header: formatHeader(value),
             cell: ({ row }) => {
                 const information = String(row.getValue(value))
-                return value === 'is_active' ? <Button onClick={() => navigate('/user/edit', { state: { data: row.original } })}>Editar</Button> : <div>{information}</div>
+                return value === 'is_active' ? <Button onClick={() => navigate(`/user/edit/:${row.original.id}`, { state: { data: row.original } })}>Editar</Button> : <div>{information}</div>
             },
         }
     ))

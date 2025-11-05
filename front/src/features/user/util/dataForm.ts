@@ -5,6 +5,8 @@ export const dateIterar: formUser = {
     password: { htmlFor: 'input-password', placeholder: '*******', type: 'password', name: 'Password' },
     user_name: { htmlFor: 'input-user_name', placeholder: 'jm_arana', type: 'text', name: 'User Name' },
     email: { htmlFor: 'input-email', placeholder: '@gmail.com', type: 'email', name: 'Email' },
+    date_of_birth: { htmlFor: 'input-date', placeholder: 'date', type: 'date', name: 'Date Of Birth' },
+
 }
 // date_of_birth: { htmlFor: 'input-date_of_birth', placeholder: 'Escribe tu nombre', type: 'date' },
 export const ValuesKeys = {
@@ -39,6 +41,7 @@ export interface formUser {
     password: Password
     user_name: UserName
     email: Email
+    date_of_birth: Date
 }
 
 export interface FirstName {
@@ -48,6 +51,14 @@ export interface FirstName {
     name: string
     class: string
 }
+
+export interface Date {
+    htmlFor: string
+    placeholder: string
+    type: string
+    name: string
+}
+
 
 export interface SecondName {
     htmlFor: string

@@ -20,6 +20,7 @@ interface FormCreateUserProps<T extends FieldValues, D extends Record<string, an
 }
 
 export const FormCreateUser = <T extends FieldValues, D extends Record<string, any>>({
+
     apiData,
     loginForm,
     dateIterar
@@ -42,6 +43,7 @@ export const FormCreateUser = <T extends FieldValues, D extends Record<string, a
 
 
     async function onSubmit(user: T) {
+
         mutation.mutate(user)
     }
 
@@ -52,75 +54,85 @@ export const FormCreateUser = <T extends FieldValues, D extends Record<string, a
             <form id="login-form" onSubmit={loginForm.handleSubmit(onSubmit)} className="max-w-5xl flex justify-center  items-center w-full">
                 <FieldGroup className=" grid w-full grid-cols-1 items-center justify-center sm:grid-cols-2">
                     {Object.entries(dateIterar).map(([key, value]) => {
+
+                        if (key !== 'date_of_birth') {
+                            return (
+                                <Controller
+                                    key={value.htmlFor}
+                                    name={key as Path<T>}
+                                    control={loginForm.control}
+                                    render={({ field, fieldState }) => (
+                                        <Field data-invalid={fieldState.invalid} className="flex items-center justify-center w-full">
+                                            <FieldLabel htmlFor={value.htmlFor} className=" sm:text-2xl text-lg flex justify-center">
+                                                {value.name}
+                                            </FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id={value.htmlFor}
+                                                aria-invalid={fieldState.invalid}
+                                                placeholder={value.placeholder}
+                                                autoComplete="off"
+                                                className="h-13"
+                                                type={value.type}
+                                            />
+                                            {fieldState.invalid && (
+                                                <FieldError errors={[fieldState.error]} />
+                                            )}
+                                        </Field>
+                                    )}
+                                />
+                            )
+
+                        }
+
                         return (
                             <Controller
                                 key={value.htmlFor}
-                                name={key as Path<T>}
+                                name={'date_of_birth' as Path<T>}
                                 control={loginForm.control}
                                 render={({ field, fieldState }) => (
-                                    <Field data-invalid={fieldState.invalid} className="flex items-center justify-center w-full">
-                                        <FieldLabel htmlFor={value.htmlFor} className=" sm:text-2xl text-lg flex justify-center">
-                                            {value.name}
-                                        </FieldLabel>
-                                        <Input
-                                            {...field}
-                                            id={value.htmlFor}
-                                            aria-invalid={fieldState.invalid}
-                                            placeholder={value.placeholder}
-                                            autoComplete="off"
-                                            className="h-13"
-                                            type={value.type}
-                                        />
+                                    <div className="flex flex-col gap-3 justify-center items-center">
+                                        <Label htmlFor={value.htmlFor} className=" sm:text-2xl text-lg flex justify-center">
+                                            Date of birth
+                                        </Label>
+                                        <Popover open={open} onOpenChange={setOpen} >
+                                            <PopoverTrigger asChild className="w-48">
+                                                <Button
+                                                    variant="outline"
+                                                    id={value.id}
+                                                    className="font-normal max-w-120 w-full h-13"
+                                                >
+                                                    {field.value ? field.value.toLocaleDateString() : "Select date"}
+                                                    <ChevronDownIcon />
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-auto overflow-hidden p-0" align="start">
+                                                <Calendar
+                                                    className="max-w-120 w-full"
+                                                    mode="single"
+                                                    selected={field.value}
+                                                    captionLayout="dropdown"
+                                                    onSelect={(date) => {
+                                                        field.onChange(date)
+                                                        setOpen(false)
+                                                    }}
+                                                />
+                                            </PopoverContent>
+                                        </Popover>
                                         {fieldState.invalid && (
                                             <FieldError errors={[fieldState.error]} />
                                         )}
-                                    </Field>
-                                )}
+                                    </div>
+                                )
+                                }
+
                             />
 
                         )
+
                     })}
 
-                    <Controller
-                        name={'date_of_birth' as Path<T>}
-                        control={loginForm.control}
-                        render={({ field, fieldState }) => (
-                            <div className="flex flex-col gap-3 justify-center items-center">
-                                <Label htmlFor="date" className=" sm:text-2xl text-lg flex justify-center">
-                                    Date of birth
-                                </Label>
-                                <Popover open={open} onOpenChange={setOpen} >
-                                    <PopoverTrigger asChild className="w-48">
-                                        <Button
-                                            variant="outline"
-                                            id="date"
-                                            className="font-normal max-w-120 w-full h-13"
-                                        >
-                                            {field.value ? field.value.toLocaleDateString() : "Select date"}
-                                            <ChevronDownIcon />
-                                        </Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-auto overflow-hidden p-0" align="start">
-                                        <Calendar
-                                            className="max-w-120 w-full"
-                                            mode="single"
-                                            selected={field.value}
-                                            captionLayout="dropdown"
-                                            onSelect={(date) => {
-                                                field.onChange(date)
-                                                setOpen(false)
-                                            }}
-                                        />
-                                    </PopoverContent>
-                                </Popover>
-                                {fieldState.invalid && (
-                                    <FieldError errors={[fieldState.error]} />
-                                )}
-                            </div>
-                        )
-                        }
 
-                    />
                     <Field className="flex justify-center w-full items-center sm:col-span-2">
                         <Button type="submit" id="login-button" className=" w-full max-w-120 h-12 text-xl">
                             Crear Usuario
