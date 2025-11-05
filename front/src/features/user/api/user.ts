@@ -10,7 +10,6 @@ export const getAllUser = async (): Promise<ResponseServer> => {
         })
         return await ResponseUser.json()
     } catch (error) {
-        console.error('FETCH DENTRO DE USUARIO', error)
         throw new Error(String(error))
     }
 }
@@ -34,7 +33,6 @@ export const CreateUser = async (user: z.infer<typeof createFormSchema>): Promis
         const result = await ResponseUser.json()
         return result
     } catch (error) {
-        console.error('FETCH DENTRO DE USUARIO', error)
         throw new Error(String(error))
     }
 }
@@ -59,8 +57,6 @@ export const UpdateUser = async (user: z.infer<typeof updateSchema>): Promise<Re
         const result = await ResponseUser.json()
         return result
     } catch (error) {
-        console.log(error)
-
         throw new Error(String(error))
     }
 }
