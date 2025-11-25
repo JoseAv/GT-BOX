@@ -10,6 +10,6 @@ const CreateProductStandar = z.object({
 
 export type productsCreate = z.infer<typeof CreateProductStandar>
 
-export const ProductStandart = ({ products }: { products: productsCreate }) => {
+export const ProductStandart = async ({ products }: { products: productsCreate }) => {
     return CreateProductStandar.safeParse(products)
 }

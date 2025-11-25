@@ -1,5 +1,5 @@
 
-class InvalidationSchema extends Error {
+export class InvalidationSchema extends Error {
     status: number;
     field: string[] | [];
     constructor(message: 'Invalid Schema', field: string[]) {

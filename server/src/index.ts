@@ -20,7 +20,7 @@ const Main = async (Models: IModel) => {
     }));
     app.use('/user', await userRouter(Models.userModel))
     app.use('/login', await loginRouter({ loginModel: Models.loginModel }))
-    app.use('/products', await standarRouter())
+    app.use('/products', await standarRouter({ ProductsModel: Models.ProductsModel }))
 
     app.listen(config.port, () => console.log('Escuchando en:', config.port))
 }
