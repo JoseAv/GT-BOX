@@ -1,21 +1,27 @@
 import type { Request, Response } from "express";
 import type { typeProductModel } from "../interfaces/model.js";
+import { InvalidationSchema } from "../../../shared/error/invalidationSchema.js";
 export class ControllStandar {
-    ModelProducts;
+    ModelProducts: typeProductModel;
 
     constructor({ ProductsModel } = {} as { ProductsModel: typeProductModel }) {
         this.ModelProducts = ProductsModel;
     }
 
-    async createProducts(req: Request, res: Response) {
+    createProducts = async (req: Request, res: Response) => {
         try {
-            console.log(req.body)
+            console.log(this.ModelProducts)
+            const products = { ...req.body }
+            // const result = await this.ModelProducts.createProducts({ products })
             return res.status(200).json({
-                hola: req.body
+                hola: 'enviado Exitosamente'
             })
 
         } catch (error) {
-
+            if (error instanceof InvalidationSchema)
+                return res.status(error.status).json({ ...error })
+            console.log(error)
+            return res.status(400).json({ error })
         }
 
 

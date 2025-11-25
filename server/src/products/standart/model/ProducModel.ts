@@ -6,6 +6,7 @@ export class ProductsModel {
 
     static createProducts = async ({ products }: { products: productsCreate }) => {
         try {
+            console.log(products)
             const resultValidation = await validationProducts({ products })
 
         } catch (error) {
