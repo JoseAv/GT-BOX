@@ -3,7 +3,6 @@ import type { typeUser, userCreate, ValidationError } from "../interfaces/user.j
 import { QueryTypes } from "sequelize";
 import type { GenericSpResponse, ResultDB } from "../../shared/interfaces/DB.js";
 import { db } from "../../shared/config/db/sequelize.js";
-import { boolean } from "zod";
 
 
 export class userRepo {

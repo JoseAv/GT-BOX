@@ -10,9 +10,8 @@ export class ControllStandar {
 
     createProducts = async (req: Request, res: Response) => {
         try {
-            console.log(this.ModelProducts)
-            const products = { ...req.body }
-            // const result = await this.ModelProducts.createProducts({ products })
+            const products = { ...req.body, price: Number(req.body.price) }
+            const result = await this.ModelProducts.createProducts({ products })
             return res.status(200).json({
                 hola: 'enviado Exitosamente'
             })
@@ -20,7 +19,7 @@ export class ControllStandar {
         } catch (error) {
             if (error instanceof InvalidationSchema)
                 return res.status(error.status).json({ ...error })
-            console.log(error)
+
             return res.status(400).json({ error })
         }
 
