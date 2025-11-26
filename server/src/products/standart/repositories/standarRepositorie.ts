@@ -9,16 +9,24 @@ export class RepositorieModel {
 
     static createProducts = async ({ products }: { products: productsCreate }) => {
         try {
-            const queryGetAllUser: Array<ResultDB> = await db.query('SELECT (fn_get_all_users()) as result;', { type: QueryTypes.SELECT })
-            if (!queryGetAllUser || queryGetAllUser.length === 0 || !queryGetAllUser[0]) {
+            const newProduct: Array<ResultDB> = await db.query('SELECT fn_create_product(:name,:description,:price,:sku,:photo) as result;',
+                {
+                    replacements: {
+                        name: products.name,
+                        description: products.description,
+                        price: products.price,
+                        sku: products.sku,
+                        photo: products.photo ?? null
+                    },
+                    type: QueryTypes.SELECT
+                })
+            if (!newProduct || newProduct.length === 0 || !newProduct[0]) {
                 throw new InvalidationDB({ message: 'No devolvio ningun resultado o no hubo respuesta' })
 
             }
 
-            const responseDb = queryGetAllUser[0].result
-
+            const responseDb = newProduct[0].result
             return [responseDb.http_code, { ...responseDb }]
-
         } catch (error) {
             throw error
         }

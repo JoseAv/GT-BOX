@@ -5,7 +5,7 @@ const CreateProductStandar = z.object({
     description: z.string().min(10),
     price: z.number().min(1),
     sku: z.string(),
-    // photo: z.instanceof(File).optional().nullable(),
+    photo: z.instanceof(File).optional().nullable(),
 })
 
 export type productsCreate = z.infer<typeof CreateProductStandar>

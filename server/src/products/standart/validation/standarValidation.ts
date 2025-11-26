@@ -9,7 +9,7 @@ export const validationProducts = async ({ products }: { products: productsCreat
             const result = formatZodError(resultZod.error)
             throw new InvalidationSchema({ status: 300, message: resultZod.error.message, field: result })
         }
-
+        return products
     } catch (err) {
         throw err
     }

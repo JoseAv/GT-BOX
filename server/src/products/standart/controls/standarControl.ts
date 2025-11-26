@@ -11,10 +11,8 @@ export class ControllStandar {
     createProducts = async (req: Request, res: Response) => {
         try {
             const products = { ...req.body, price: Number(req.body.price) }
-            const result = await this.ModelProducts.createProducts({ products })
-            return res.status(200).json({
-                hola: 'enviado Exitosamente'
-            })
+            const [status, data] = await this.ModelProducts.createProducts({ products })
+            return res.status(status).json({ ...data })
 
         } catch (error) {
             if (error instanceof InvalidationSchema)
