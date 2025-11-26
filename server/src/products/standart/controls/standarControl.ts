@@ -43,4 +43,18 @@ export class ControllStandar {
         }
     }
 
+
+    getAllProductsStandart = async (req: Request, res: Response) => {
+        try {
+            const [status, data] = await this.ModelProducts.getAllProductsStandart()
+            return res.status(status).json({ ...data })
+
+        } catch (error) {
+            if (error instanceof InvalidationSchema)
+                return res.status(error.status).json({ ...error })
+
+            return res.status(400).json({ error })
+        }
+    }
+
 }

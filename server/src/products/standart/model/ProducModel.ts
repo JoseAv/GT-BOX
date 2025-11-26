@@ -24,5 +24,13 @@ export class ProductsModel {
         }
     }
 
+    static getAllProductsStandart = async () => {
+        try {
+            return RepositorieModel.getAllProducts()
+        } catch (error) {
+            throw error
+        }
+    }
+
 
 }
