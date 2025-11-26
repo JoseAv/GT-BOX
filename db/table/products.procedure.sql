@@ -37,3 +37,26 @@ BEGIN
         price = COALESCE(p_price, price),
         photo = COALESCE(p_photo, photo),
         
+
+create or replace function fn_get_all_products ()
+    returns json
+as $$
+    declare
+        data json;
+    begin
+            select json_object_agg(
+                            id,
+                           json_build_object('name',name,
+                                             'description',description,
+                                             'price',price,
+                                             'is_active',is_active,
+                                             'id',id,
+                                             'has_variant',has_variant,
+                                             'sku',sku))
+                into data from  product where is_active = true;
+            return  fn_json_success(200,'Extraido los productos Correctamente', data );
+        Exception
+            when others  then
+         return fn_json_rejected(400,'error in services');
+    end;
+    $$ language plpgsql;
