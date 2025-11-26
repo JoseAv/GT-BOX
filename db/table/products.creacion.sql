@@ -7,7 +7,8 @@ create table product (
     category int,
     photo text,
     is_active boolean default true,
-    has_variant boolean default false);
+    has_variant boolean default false
+    );
 
 create table variant(
     id serial primary key ,
