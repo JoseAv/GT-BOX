@@ -6,6 +6,7 @@ import { Models, type IModel } from './shared/config/models/unionModel.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import { veryCooki } from "./login/middleware/verifyCookie.js"
+import { standarRouter } from "./products/standart/routes/standart.routes.js"
 
 const Main = async (Models: IModel) => {
     const app = express()
@@ -19,7 +20,7 @@ const Main = async (Models: IModel) => {
     }));
     app.use('/user', await userRouter(Models.userModel))
     app.use('/login', await loginRouter({ loginModel: Models.loginModel }))
-
+    app.use('/products', await standarRouter({ ProductsModel: Models.ProductsModel }))
 
     app.listen(config.port, () => console.log('Escuchando en:', config.port))
 }

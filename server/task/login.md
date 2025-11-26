@@ -1,6 +1,6 @@
 ## Task about Login on server
 
 
-- [] Bycript
-- [] Create, update, user
-- [] cookieParse
+- [x] Bycript
+- [x] Create, update, user
+- [x] cookieParse
