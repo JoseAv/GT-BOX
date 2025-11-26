@@ -20,8 +20,27 @@ export class ControllStandar {
 
             return res.status(400).json({ error })
         }
+    }
 
+    editProducts = async (req: Request, res: Response) => {
+        try {
+            const products = { ...req.body, id_product: +req.body.id_product }
+            console.log(products)
+            if (products.price >= 0) {
+                products.price = Number(products.price)
+            }
+            if (products.is_active) {
+                products.is_active = products.is_active === 'true'
+            }
+            const [status, data] = await this.ModelProducts.editProducts({ products })
+            return res.status(status).json({ ...data })
 
+        } catch (error) {
+            if (error instanceof InvalidationSchema)
+                return res.status(error.status).json({ ...error })
+
+            return res.status(400).json({ error })
+        }
     }
 
 }

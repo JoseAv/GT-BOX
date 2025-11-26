@@ -10,5 +10,7 @@ export const standarRouter = async ({ ProductsModel }: { ProductsModel: typeProd
     const newRoute = Router()
     const productsStandart = new ControllStandar({ ProductsModel })
     newRoute.post('/create', upload.none(), productsStandart.createProducts)
+    newRoute.patch('/edit', upload.none(), productsStandart.editProducts)
+
     return newRoute
 }

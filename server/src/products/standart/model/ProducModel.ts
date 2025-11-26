@@ -1,6 +1,6 @@
 import { RepositorieModel } from "../repositories/standarRepositorie.js"
-import type { productsCreate } from "../validation/standarSchema.js"
-import { validationProducts } from "../validation/standarValidation.js"
+import type { editProducts, productsCreate } from "../validation/standarSchema.js"
+import { validationEditProducts, validationProducts } from "../validation/standarValidation.js"
 
 export class ProductsModel {
 
@@ -14,6 +14,15 @@ export class ProductsModel {
         }
     }
 
+
+    static editProducts = async ({ products }: { products: editProducts }) => {
+        try {
+            const resultValidation = await validationEditProducts({ products })
+            return RepositorieModel.editProducts({ products: resultValidation })
+        } catch (error) {
+            throw error
+        }
+    }
 
 
 }
