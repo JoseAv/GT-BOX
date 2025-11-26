@@ -43,7 +43,6 @@ export const FormCreateUser = <T extends FieldValues, D extends Record<string, a
 
 
     async function onSubmit(user: T) {
-
         mutation.mutate(user)
     }
 

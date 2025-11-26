@@ -7,7 +7,6 @@ import { DialogCloseButton } from '../user/components/Dialog';
 
 export const Layout = () => {
     const notification = useNotificationStore((state) => state.create)
-    console.log('Notificaciones', notification)
     return <div className='layout-container'>
         {notification ? <DialogCloseButton /> : null}
         <nav className='layout-nav-principal flex'><Navbar /></nav>
