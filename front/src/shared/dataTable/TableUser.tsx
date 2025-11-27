@@ -39,7 +39,7 @@ export function DataTable<TData, TValue>({
                         }
                         className="max-w-sm"
                     />
-                    <Button variant="default" className="ml-auto" onClick={() => navigate(links.CreateUser)}>
+                    <Button variant="default" className="ml-auto" onClick={() => navigate(links.Create)}>
                         {links.nameCreate}
                     </Button>
                 </div>

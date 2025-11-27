@@ -7,8 +7,8 @@ import { formatHeader } from "../util/dataForm"
 import { useNavigate } from "react-router"
 
 export const userLinks = {
-    CreateUser: '/user/create',
-    EditUser: '/user/edit/',
+    Create: '/user/create',
+    Edit: '/user/edit/',
     nameCreate: 'Crear Usuario',
     nameEdit: 'Editar'
 } as const
