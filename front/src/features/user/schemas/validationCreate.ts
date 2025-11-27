@@ -30,3 +30,4 @@ export const updateSchema = createFormSchema.omit({ password: true }).partial().
     id: z.number(),
     password: z.string().min(4, "You must type min 4").optional(),
 })
+

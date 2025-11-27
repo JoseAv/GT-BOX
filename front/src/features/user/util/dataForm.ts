@@ -29,11 +29,7 @@ export const formatHeader = (key: string): string => {
         .join(' ');
 }
 
-
-
 export type TypeKeys = keyof typeof ValuesKeys;
-
-
 export interface formUser {
     first_name: FirstName
     second_name: SecondName
