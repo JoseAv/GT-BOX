@@ -33,7 +33,7 @@ export class RepositorieModel {
     }
 
     static editProducts = async ({ products }: { products: editProducts }) => {
-
+        console.table(Object.values(products))
         try {
             const newProduct: Array<ResultDB> = await db.query('SELECT fn_edit_product(:id,:name,:description,:price,:photo,:is_active,:sku) as result;',
                 {
@@ -56,7 +56,7 @@ export class RepositorieModel {
             const responseDb = newProduct[0].result
             return [responseDb.http_code, { ...responseDb }]
         } catch (error) {
-            console.log(error)
+            // console.log(error)
 
             if (error instanceof InvalidationDB)
                 throw error

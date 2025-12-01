@@ -22,6 +22,8 @@ export const router = createBrowserRouter([
                 { path: 'user/create', element: < CreateUserPage /> },
                 { path: 'user/edit/:id', element: < UpdateUserPage /> },
 
+                { path: 'dashboard' },
+
                 { path: 'products', element: < MainProducts /> },
                 { path: 'products/create', element: < CreateProducts /> },
                 { path: 'products/edit/:id', element: < UpdateProductsPage /> },
