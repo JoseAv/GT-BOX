@@ -24,8 +24,7 @@ export class ControllStandar {
 
     editProducts = async (req: Request, res: Response) => {
         try {
-            const products = { ...req.body, id_product: +req.body.id_product }
-            console.log(products)
+            const products = { ...req.body, id: +req.body.id }
             if (products.price >= 0) {
                 products.price = Number(products.price)
             }

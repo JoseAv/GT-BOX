@@ -17,7 +17,6 @@ export const MainProducts = () => {
     const { data, error, isPending } = GetAllProducts()
     const navigate = useNavigate()
 
-    console.log(data)
     if (error || !data || !data.data) {
         return <h1>Error</h1>
     }

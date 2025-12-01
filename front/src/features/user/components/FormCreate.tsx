@@ -148,7 +148,11 @@ export const FormCreateUser = <T extends FieldValues, D extends Record<string, a
 
 
                     <Field className="flex justify-center w-full items-center sm:col-span-2">
-                        <Button type="submit" id="login-button" className=" w-full max-w-120 h-12 text-xl">
+                        <Button type="submit" id="login-button" className=" w-full max-w-120 h-12 text-xl cursor-alias"
+                            onClick={() => {
+                                loginForm.handleSubmit(onSubmit)();
+                            }}
+                        >
                             Crear Productos
                         </Button>
                     </Field>

@@ -7,6 +7,7 @@ import { CreateUserPage } from "@/features/user/page/CreateUserPage";
 import { UpdateUserPage } from "@/features/user/page/UpdateUserPage";
 import { MainProducts } from "@/features/products/pages/Main";
 import { CreateProducts } from "@/features/products/pages/Create";
+import { UpdateProductsPage } from "@/features/products/pages/Edit";
 
 
 
@@ -23,7 +24,7 @@ export const router = createBrowserRouter([
 
                 { path: 'products', element: < MainProducts /> },
                 { path: 'products/create', element: < CreateProducts /> },
-
+                { path: 'products/edit/:id', element: < UpdateProductsPage /> },
             ]
         }],
     }, {

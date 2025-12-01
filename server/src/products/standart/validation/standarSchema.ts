@@ -8,7 +8,7 @@ const CreateProductStandar = z.object({
     photo: z.instanceof(File).optional().nullable(),
 })
 
-const editProduct = CreateProductStandar.partial().extend({ id_product: number().int(), is_active: boolean().optional() })
+const editProduct = CreateProductStandar.partial().extend({ id: number().int(), is_active: boolean().optional() })
 
 export type productsCreate = z.infer<typeof CreateProductStandar>
 export type editProducts = z.infer<typeof editProduct>
