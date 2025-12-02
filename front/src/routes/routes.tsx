@@ -6,6 +6,8 @@ import { PageUsers } from "@/features/user/page/main";
 import { CreateUserPage } from "@/features/user/page/CreateUserPage";
 import { UpdateUserPage } from "@/features/user/page/UpdateUserPage";
 import { MainProducts } from "@/features/products/pages/Main";
+import { CreateProducts } from "@/features/products/pages/Create";
+import { UpdateProductsPage } from "@/features/products/pages/Edit";
 
 
 
@@ -19,7 +21,12 @@ export const router = createBrowserRouter([
                 { path: 'user', element: <PageUsers /> },
                 { path: 'user/create', element: < CreateUserPage /> },
                 { path: 'user/edit/:id', element: < UpdateUserPage /> },
+
+                { path: 'dashboard' },
+
                 { path: 'products', element: < MainProducts /> },
+                { path: 'products/create', element: < CreateProducts /> },
+                { path: 'products/edit/:id', element: < UpdateProductsPage /> },
             ]
         }],
     }, {

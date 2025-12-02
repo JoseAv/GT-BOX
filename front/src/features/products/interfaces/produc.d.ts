@@ -1,4 +1,4 @@
-export interface GetAllProducts {
+export interface TypeGetAllProducts {
     name: string
     description: string
     price: number
@@ -15,5 +15,5 @@ export interface DbRecibe {
     message: string
     httpcode: number,
     time: string,
-    data: GetAllProducts[]
+    data: TypeGetAllProducts[]
 }

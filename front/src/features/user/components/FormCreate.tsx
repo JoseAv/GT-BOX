@@ -1,4 +1,4 @@
-import { Controller, type FieldValues, type Path, type UseFormReturn } from "react-hook-form"
+import { Controller, type FieldValues, type Path, type UseFormReturn as DataFormReturn } from "react-hook-form"
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -14,13 +14,12 @@ import { useState } from "react"
 import type { ResponseServer } from "../interfaces/user"
 
 interface FormCreateUserProps<T extends FieldValues, D extends Record<string, any>> {
-    apiData: (user: T) => Promise<ResponseServer>,
-    loginForm: UseFormReturn<T>,
+    apiData: (data: T) => Promise<ResponseServer>,
+    loginForm: DataFormReturn<T>,
     dateIterar: D
 }
 
 export const FormCreateUser = <T extends FieldValues, D extends Record<string, any>>({
-
     apiData,
     loginForm,
     dateIterar
@@ -37,13 +36,13 @@ export const FormCreateUser = <T extends FieldValues, D extends Record<string, a
         },
         onSuccess: () => {
             handleUpdate()
-            navigate('/user')
+            navigate('/products')
         },
     })
 
 
-    async function onSubmit(user: T) {
-        mutation.mutate(user)
+    async function onSubmit(data: T) {
+        mutation.mutate(data)
     }
 
     return (
@@ -65,15 +64,31 @@ export const FormCreateUser = <T extends FieldValues, D extends Record<string, a
                                             <FieldLabel htmlFor={value.htmlFor} className=" sm:text-2xl text-lg flex justify-center">
                                                 {value.name}
                                             </FieldLabel>
-                                            <Input
-                                                {...field}
-                                                id={value.htmlFor}
-                                                aria-invalid={fieldState.invalid}
-                                                placeholder={value.placeholder}
-                                                autoComplete="off"
-                                                className="h-13"
-                                                type={value.type}
-                                            />
+                                            {value.valueAsNumber === true ?
+                                                <Input
+                                                    {...field}
+                                                    id={value.htmlFor}
+                                                    aria-invalid={fieldState.invalid}
+                                                    placeholder={value.placeholder}
+                                                    autoComplete="off"
+                                                    className="h-13"
+                                                    type={value.type}
+                                                    // onChange directamente lo guarda en el schema de reackHookForm pero convertido
+                                                    onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
+                                                    value={field.value || ''}
+                                                />
+                                                :
+                                                <Input
+                                                    {...field}
+                                                    id={value.htmlFor}
+                                                    aria-invalid={fieldState.invalid}
+                                                    placeholder={value.placeholder}
+                                                    autoComplete="off"
+                                                    className="h-13"
+                                                    type={value.type}
+                                                />
+                                            }
+
                                             {fieldState.invalid && (
                                                 <FieldError errors={[fieldState.error]} />
                                             )}
@@ -133,8 +148,12 @@ export const FormCreateUser = <T extends FieldValues, D extends Record<string, a
 
 
                     <Field className="flex justify-center w-full items-center sm:col-span-2">
-                        <Button type="submit" id="login-button" className=" w-full max-w-120 h-12 text-xl">
-                            Crear Usuario
+                        <Button type="submit" id="login-button" className=" w-full max-w-120 h-12 text-xl cursor-alias"
+                            onClick={() => {
+                                loginForm.handleSubmit(onSubmit)();
+                            }}
+                        >
+                            Crear Productos
                         </Button>
                     </Field>
 

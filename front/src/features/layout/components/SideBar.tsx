@@ -12,8 +12,8 @@ export const SideBar = () => {
         {
             Inicio: { icon: <HomeSVG />, href: '#' },
             Prices: { icon: <ArrowsSVG />, href: '#' },
-            Products: { icon: <BoxSVG />, href: '#' },
-            User: { icon: <AdminsSVG />, href: '#' },
+            Products: { icon: <BoxSVG />, href: 'products' },
+            User: { icon: <AdminsSVG />, href: 'user' },
         } as const
 
     return (
