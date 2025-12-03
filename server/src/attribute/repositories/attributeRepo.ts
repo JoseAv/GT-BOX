@@ -1,7 +1,7 @@
 import { QueryTypes } from "sequelize"
 import type { ResultDB } from "../../shared/interfaces/DB.js"
 import { db } from "../../shared/config/db/sequelize.js"
-import type { TypeAttributeCreate } from "../schemas/AttributesSchemas.js"
+import type { TypeAttributeCreate, TypeAttributeEdit } from "../schemas/AttributesSchemas.js"
 import { InvalidationDB } from "../../shared/error/invalidationSchema.js"
 
 export class AttributesRepo {
@@ -14,6 +14,32 @@ export class AttributesRepo {
                     replacements: {
                         attribute: JSON.stringify(attribute.attribute),
                         values: JSON.stringify(attribute.values)
+                    },
+                    type: QueryTypes.SELECT
+                })
+
+            if (!newProduct || newProduct.length === 0 || !newProduct[0]) {
+                throw new InvalidationDB({ message: 'No devolvio ningun resultado o no hubo respuesta' })
+            }
+            const responseDb = newProduct[0].result
+            return [responseDb.http_code, { ...responseDb }]
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
+    }
+
+
+    static editAttributes = async ({ attribute }: { attribute: TypeAttributeEdit }) => {
+        const newAttribute = attribute.attribute ? JSON.stringify(attribute.attribute) : null
+        const newValues = attribute.values ? JSON.stringify(attribute.values) : null
+
+        try {
+            const newProduct: Array<ResultDB> = await db.query('SELECT fn_edit_atributte_value(:attribute::jsonb,:values::jsonb) as result;',
+                {
+                    replacements: {
+                        attribute: newAttribute,
+                        values: newValues
                     },
                     type: QueryTypes.SELECT
                 })

@@ -1,5 +1,5 @@
 import type { ZodError } from "zod"
-import { CreateParseSchema, EditParseSchema, type TypeAttributeCreate } from "./AttributesSchemas.js"
+import { CreateParseSchema, EditParseSchema, type TypeAttributeCreate, type TypeAttributeEdit } from "./AttributesSchemas.js"
 import { InvalidationSchema } from "../../shared/error/invalidationSchema.js"
 
 export const validationAttributes = async ({ attribute }: { attribute: TypeAttributeCreate }) => {
@@ -15,7 +15,7 @@ export const validationAttributes = async ({ attribute }: { attribute: TypeAttri
     }
 }
 
-export const validationAttributesEdit = async ({ attribute }: { attribute: TypeAttributeCreate }) => {
+export const validationAttributesEdit = async ({ attribute }: { attribute: TypeAttributeEdit }) => {
     try {
         const resultZod = await EditParseSchema({ attribute })
         if (!resultZod.success) {

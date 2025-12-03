@@ -11,7 +11,7 @@ const createAttributeSchema = z.object({
 
 const editAttributeSchema = z.object({
     attribute: SchemaAttribute.extend({ id: z.number().int() }).optional(),
-    values: z.array(Schemavalues.extend({ id: z.number().int() }).optional())
+    values: z.array(Schemavalues.extend({ id: z.number().int() })).optional()
 
 })
 
@@ -23,6 +23,6 @@ export const CreateParseSchema = async ({ attribute }: { attribute: TypeAttribut
     return createAttributeSchema.safeParse(attribute)
 }
 
-export const EditParseSchema = async ({ attribute }: { attribute: TypeAttributeCreate }) => {
+export const EditParseSchema = async ({ attribute }: { attribute: TypeAttributeEdit }) => {
     return editAttributeSchema.safeParse(attribute)
 }

@@ -1,6 +1,6 @@
 import { AttributesRepo } from "../repositories/attributeRepo.js";
-import type { TypeAttributeCreate } from "../schemas/AttributesSchemas.js";
-import { validationAttributes } from "../schemas/validationAttributes.js";
+import type { TypeAttributeCreate, TypeAttributeEdit } from "../schemas/AttributesSchemas.js";
+import { validationAttributes, validationAttributesEdit } from "../schemas/validationAttributes.js";
 
 export class AttributeModel {
 
@@ -9,6 +9,15 @@ export class AttributeModel {
         try {
             const resultValidation = await validationAttributes({ attribute })
             return AttributesRepo.createAttributes({ attribute: resultValidation })
+        } catch (error) {
+            throw error
+        }
+    }
+
+    static EditAttribute = async ({ attribute }: { attribute: TypeAttributeEdit }) => {
+        try {
+            const resultValidation = await validationAttributesEdit({ attribute })
+            return AttributesRepo.editAttributes({ attribute: resultValidation })
         } catch (error) {
             throw error
         }
