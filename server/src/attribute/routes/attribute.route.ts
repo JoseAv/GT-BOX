@@ -7,6 +7,8 @@ export const attributeRouter = async ({ AttributeModel }: { AttributeModel: type
     const newAttributeControls = new AttributeControls({ AttributeModel })
     Routes.post('/create', newAttributeControls.CreateAttribute)
     Routes.patch('/edit', newAttributeControls.EditAttribute)
+    Routes.get('/get-all', newAttributeControls.GetAllAttribute)
+
 
 
     return Routes

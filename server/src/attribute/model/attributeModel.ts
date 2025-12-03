@@ -24,4 +24,14 @@ export class AttributeModel {
     }
 
 
+
+    static GetAllAttribute = async () => {
+        try {
+            return AttributesRepo.getAllAttributes()
+        } catch (error) {
+            throw error
+        }
+    }
+
+
 }
