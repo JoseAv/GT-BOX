@@ -72,6 +72,24 @@ export class AttributesRepo {
         }
     }
 
+    static getOneAttributes = async ({ id }: { id: number }) => {
+        try {
+            const newProduct: Array<ResultDB> = await db.query('select  get_one_attributes_and_values(:id) as result;',
+                {
+                    replacements: { id: id },
+                    type: QueryTypes.SELECT
+                })
+            if (!newProduct || newProduct.length === 0 || !newProduct[0]) {
+                throw new InvalidationDB({ message: 'No devolvio ningun resultado o no hubo respuesta' })
+            }
+            const responseDb = newProduct[0].result
+            return [responseDb.http_code, { ...responseDb }]
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
+    }
+
 
 
 }

@@ -33,5 +33,13 @@ export class AttributeModel {
         }
     }
 
+    static GetOneAttribute = async ({ id }: { id: number }) => {
+        try {
+            return AttributesRepo.getOneAttributes({ id })
+        } catch (error) {
+            throw error
+        }
+    }
+
 
 }
