@@ -66,3 +66,63 @@ select fn_edit_atributte_value((select jsonb_build_object('name','prueba edit1',
 select * from attribute;
 
 select * from attribute_value;
+
+
+-- Funciones para obtener datos
+
+create or replace function get_all_attributes()
+    returns json
+    as $$
+        declare
+            j_attribute json;
+        begin
+
+            select json_agg(jsonb_build_object('id',id,'name',name) ) into j_attribute from attribute ;
+            return fn_json_success(200,'Obtenido con exito', j_attribute);
+
+            EXCEPTION
+                when others then
+                    return  fn_json_rejected(500, 'Internal ERROR');
+        end;
+    $$ language plpgsql;
+
+CREATE OR REPLACE FUNCTION get_one_attributes_and_values(a_id int)
+RETURNS json
+AS $$
+DECLARE
+    j_attribute jsonb;
+    j_values jsonb;
+    j_data jsonb;
+BEGIN
+    IF a_id IS NULL THEN
+        RAISE EXCEPTION 'ID is required';
+    END IF;
+
+    SELECT jsonb_build_object('id', id, 'name', name)
+    INTO j_attribute
+    FROM attribute
+    WHERE id = a_id;
+
+    IF j_attribute IS NULL THEN
+        RAISE EXCEPTION 'Attribute with ID % not found', a_id;
+    END IF;
+
+    SELECT COALESCE(jsonb_agg(jsonb_build_object('id', id, 'name', name)), '[]'::jsonb)
+    INTO j_values
+    FROM attribute_value
+    WHERE id_attribute = a_id;
+
+    j_data := jsonb_build_object('attribute', j_attribute, 'values', j_values);
+
+    RETURN fn_json_success(200, 'Success', j_data::json);
+
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN fn_json_rejected(500, SQLERRM::text);
+END;
+$$ LANGUAGE plpgsql;
+
+
+select  get_all_attributes();
+select * from attribute;
+select get_one_attributes_and_values(3);
