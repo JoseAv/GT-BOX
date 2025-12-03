@@ -6,12 +6,12 @@ const Schemavalues = z.object({ name: z.string().min(1) })
 
 const createAttributeSchema = z.object({
     attribute: SchemaAttribute,
-    values: Schemavalues
+    values: z.array(Schemavalues)
 })
 
 const editAttributeSchema = z.object({
     attribute: SchemaAttribute.extend({ id: z.number().int() }).optional(),
-    values: Schemavalues.extend({ id: z.number().int() }).optional()
+    values: z.array(Schemavalues.extend({ id: z.number().int() }).optional())
 
 })
 

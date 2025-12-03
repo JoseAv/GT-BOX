@@ -1,3 +1,4 @@
+import { InvalidationSchema } from "../../shared/error/invalidationSchema.js";
 import type { typeAttributeModel } from "../interfaces/model.js";
 import type { Request, Response } from "express";
 
@@ -9,8 +10,17 @@ export class AttributeControls {
     }
 
     CreateAttribute = async (req: Request, res: Response) => {
-        console.log(req.body)
-        res.send('hola')
+        try {
+            const attribute = req.body
+            const [status, data] = await this.ModelAttribute.CreateAttribute({ attribute })
+            return res.status(status).json({ ...data })
+
+        } catch (error) {
+            if (error instanceof InvalidationSchema)
+                return res.status(error.status).json({ ...error })
+
+            return res.status(400).json({ error })
+        }
 
 
     }

@@ -1,3 +1,3 @@
 export interface typeAttributeModel {
-    CreateAttribute: ({ products }: { products: productsCreate }) => Promise<any>
+    CreateAttribute: ({ attribute }: { attribute: TypeAttributeCreate }) => Promise<any>
 }
