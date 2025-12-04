@@ -1,4 +1,4 @@
-import z, { number } from "zod";
+import z from "zod";
 
 const SchemaAttribute = z.object({ name: z.string().min(1) })
 const Schemavalues = z.object({ name: z.string().min(1) })
