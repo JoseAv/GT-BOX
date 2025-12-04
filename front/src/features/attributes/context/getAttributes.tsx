@@ -9,3 +9,13 @@ export const ContextAttributes = () => {
     return { data, isLoading, isError }
 
 }
+
+
+export const ContextOneAttributes = ({ id }: { id: number }) => {
+
+    const { data, isLoading, isError } = useQuery({ queryKey: [`get-${id}`], queryFn: getAllAttributes })
+
+
+    return { data, isLoading, isError }
+
+}

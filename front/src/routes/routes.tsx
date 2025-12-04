@@ -9,6 +9,7 @@ import { MainProducts } from "@/features/products/pages/Main";
 import { CreateProducts } from "@/features/products/pages/Create";
 import { UpdateProductsPage } from "@/features/products/pages/Edit";
 import { MainAttribute } from "@/features/attributes/pages/Main";
+import { CreateAttributePage } from "@/features/attributes/pages/Create";
 
 
 
@@ -29,7 +30,8 @@ export const router = createBrowserRouter([
                 { path: 'products/create', element: < CreateProducts /> },
                 { path: 'products/edit/:id', element: < UpdateProductsPage /> },
 
-                { path: 'attributes', element: <MainAttribute /> }
+                { path: 'attributes', element: <MainAttribute /> },
+                { path: 'attributes/create', element: <CreateAttributePage /> }
             ]
         }],
     }, {

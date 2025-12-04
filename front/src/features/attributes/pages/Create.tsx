@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form"
 import { createAttributeSchema, type TypeAttributeCreate } from "../schemas/attributeSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { AttributeForm } from "../util/Form"
+import { PostNewAttribute } from "../api/CreateEditAttributes"
 
 export const CreateAttributePage = () => {
 
 
     const form = {
-        "attribute": { "name": "Prueba Postman 3" },
-        "values": [{ "name": "Prueba Values Postman 3" }]
+        "attribute": { "name": "" },
+        "values": [{ "name": "" }]
     }
 
     const formValues = useForm<TypeAttributeCreate>({
@@ -19,7 +20,7 @@ export const CreateAttributePage = () => {
     })
 
 
-    return <><AttributeForm<TypeAttributeCreate> formValues={formValues} /> </>
+    return <><AttributeForm<TypeAttributeCreate> apiData={PostNewAttribute} formValues={formValues} /> </>
 
 
 }

@@ -50,7 +50,6 @@ export class AttributesRepo {
             const responseDb = newProduct[0].result
             return [responseDb.http_code, { ...responseDb }]
         } catch (error) {
-            console.log(error)
             throw error
         }
     }

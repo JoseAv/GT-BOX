@@ -18,3 +18,4 @@ export const editAttributeSchema = z.object({
 
 export type TypeAttributeCreate = z.infer<typeof createAttributeSchema>
 export type TypeAttributeEdit = z.infer<typeof editAttributeSchema>
+export type typeArrayValues = z.infer<typeof Schemavalues>
