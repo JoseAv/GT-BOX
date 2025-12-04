@@ -8,6 +8,7 @@ import { UpdateUserPage } from "@/features/user/page/UpdateUserPage";
 import { MainProducts } from "@/features/products/pages/Main";
 import { CreateProducts } from "@/features/products/pages/Create";
 import { UpdateProductsPage } from "@/features/products/pages/Edit";
+import { MainAttribute } from "@/features/attributes/pages/Main";
 
 
 
@@ -27,6 +28,8 @@ export const router = createBrowserRouter([
                 { path: 'products', element: < MainProducts /> },
                 { path: 'products/create', element: < CreateProducts /> },
                 { path: 'products/edit/:id', element: < UpdateProductsPage /> },
+
+                { path: 'attributes', element: <MainAttribute /> }
             ]
         }],
     }, {

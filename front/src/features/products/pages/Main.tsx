@@ -36,7 +36,6 @@ export const MainProducts = () => {
 
         <main className="container mx-auto py-10">
             {isPending && <h1>Cargando</h1>}
-            {error && <h1>Error</h1>}
             {!isPending && !error && data.data.length > 0 && (
                 <DataTable<TypeGetAllProducts, any> columns={columns} data={data.data} links={userLinks} />
             )}

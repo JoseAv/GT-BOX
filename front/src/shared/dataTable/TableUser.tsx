@@ -26,7 +26,6 @@ export function DataTable<TData, TValue>({
         getCoreRowModel: getCoreRowModel(),
     })
 
-
     return (
         <div className="w-full">
             <div className="flex items-center py-4">
