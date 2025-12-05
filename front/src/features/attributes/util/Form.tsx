@@ -39,6 +39,7 @@ export const AttributeForm = <T extends FieldValues>({ formValues, apiData }: Fo
 
 
     async function onSubmit(data: T) {
+        console.log('Revisando datos', data)
         mutation.mutate(data)
     }
 

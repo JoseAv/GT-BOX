@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getAllAttributes } from "../api/getAttributes"
+import { getAllAttributes, getOneAttributes } from "../api/getAttributes"
 
 export const ContextAttributes = () => {
 
@@ -13,8 +13,7 @@ export const ContextAttributes = () => {
 
 export const ContextOneAttributes = ({ id }: { id: number }) => {
 
-    const { data, isLoading, isError } = useQuery({ queryKey: [`get-${id}`], queryFn: getAllAttributes })
-
+    const { data, isLoading, isError } = useQuery({ queryKey: [`get-${id}`], queryFn: () => getOneAttributes({ id }) })
 
     return { data, isLoading, isError }
 

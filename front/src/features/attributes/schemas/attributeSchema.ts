@@ -12,7 +12,7 @@ export const createAttributeSchema = z.object({
 
 export const editAttributeSchema = z.object({
     attribute: SchemaAttribute.extend({ id: z.number().int() }).optional(),
-    values: z.array(Schemavalues.extend({ id: z.number().int() })).optional()
+    values: z.array(Schemavalues.extend({ id: z.number().int().optional() })).optional()
 })
 
 

@@ -35,6 +35,7 @@ export const PatchAttribute = async (data: TypeAttributeEdit) => {
             body: JSON.stringify(data),
             credentials: 'include'
         })
+        console.log(res)
         if (!res.ok) {
             throw new Error('Error Server')
         }
@@ -42,6 +43,7 @@ export const PatchAttribute = async (data: TypeAttributeEdit) => {
         return resJson
 
     } catch (error) {
+        console.log(error)
         throw new Error(String(error))
     }
 

@@ -28,6 +28,7 @@ export const MainAttribute = () => {
 
     if (isError)
         return <h1>Error Page</h1>
+
     const resAttribute = data.data.map((ele: typeAttributes) => {
         return { ...ele, edit: true }
     })
