@@ -49,23 +49,23 @@ export const AttributeForm = <T extends FieldValues>({ formValues, apiData, edit
             return
         }
 
-        let accionValues: Record<'E' | 'C' | 'U', typeArrayValues[]> = {
-            'E': [],
-            'C': [],
-            'U': []
+        let accionValues: Record<'deleteValues' | 'createValues' | 'updateValues', typeArrayValues[]> = {
+            'deleteValues': [],
+            'createValues': [],
+            'updateValues': []
         }
 
         for (let value of data.values) {
             if (value.id) {
-                accionValues['U'].push(value as typeArrayValues)
+                accionValues['updateValues'].push(value as typeArrayValues)
             }
 
             if (!value.id) {
-                accionValues['C'].push(value)
+                accionValues['createValues'].push(value)
             }
 
         }
-        accionValues['E'].push(...dataDelete)
+        accionValues['deleteValues'].push(...dataDelete)
         const newData = { ...data, values: { ...accionValues } }
 
         mutation.mutate(newData as any)
