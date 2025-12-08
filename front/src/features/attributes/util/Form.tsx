@@ -8,23 +8,28 @@ import { useNavigate } from "react-router";
 import type { ResponseServer } from "@/features/user/interfaces/user";
 import { useMutation } from "@tanstack/react-query";
 import { useNotificationStore } from "@/shared/notifications/Notifications";
+import type { typeArrayValues } from "../schemas/attributeSchema";
 
 
 interface FormCreateUserProps<T extends FieldValues> {
     formValues: UseFormReturn<T>,
     apiData: (data: T) => Promise<ResponseServer>,
+    edit?: boolean
 }
 
 
-export const AttributeForm = <T extends FieldValues>({ formValues, apiData }: FormCreateUserProps<T>) => {
+export const AttributeForm = <T extends FieldValues>({ formValues, apiData, edit = false }: FormCreateUserProps<T>) => {
     const [showError, setError] = useState(false)
+    const [dataDelete, setDataDelete] = useState<typeArrayValues[]>([])
     const handleUpdate = useNotificationStore((state) => state.updateCount)
 
     const navigate = useNavigate();
     const { fields, append, remove } = useFieldArray({
         control: formValues.control,
         name: "values" as ArrayPath<T>,
-    });
+        keyName: "fieldId"
+    })
+
 
     const mutation = useMutation({
         mutationFn: apiData,
@@ -39,8 +44,31 @@ export const AttributeForm = <T extends FieldValues>({ formValues, apiData }: Fo
 
 
     async function onSubmit(data: T) {
-        console.log('Revisando datos', data)
-        mutation.mutate(data)
+        if (!edit) {
+            mutation.mutate(data)
+            return
+        }
+
+        let accionValues: Record<'E' | 'C' | 'U', typeArrayValues[]> = {
+            'E': [],
+            'C': [],
+            'U': []
+        }
+
+        for (let value of data.values) {
+            if (value.id) {
+                accionValues['U'].push(value as typeArrayValues)
+            }
+
+            if (!value.id) {
+                accionValues['C'].push(value)
+            }
+
+        }
+        accionValues['E'].push(...dataDelete)
+        const newData = { ...data, values: { ...accionValues } }
+
+        mutation.mutate(newData as any)
     }
 
     return (<>
@@ -88,11 +116,20 @@ export const AttributeForm = <T extends FieldValues>({ formValues, apiData }: Fo
 
             <FieldGroup>
                 {fields.map((field, index) => (
-                    <div key={field.id}>
+                    <div key={field.fieldId}>
                         <div>
 
                             <Button type="button" variant='secondary' onClick={() => {
                                 if (fields.length > 1) {
+                                    console.log('entrada aqui')
+                                    const field = fields[index] as any
+                                    setDataDelete((prev: typeArrayValues[]) => {
+                                        if (fields && field.id) {
+                                            return [...prev, { name: field.name, id: field.id }]
+                                        }
+                                        return prev
+                                    })
+
                                     remove(index)
                                 }
                             }}>
@@ -128,7 +165,7 @@ export const AttributeForm = <T extends FieldValues>({ formValues, apiData }: Fo
 
             <Field orientation="horizontal">
                 {/* form debe de coincidir con el id que tiene el formulario */}
-                <Button type="submit" form="form-rhf-attributes">
+                <Button type="submit" form="form-rhf-attributes" onClick={() => 'Hola'}>
                     Finalizar
                 </Button>
             </Field>

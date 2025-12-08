@@ -43,5 +43,5 @@ export const EditAttributePage = () => {
 
 
 
-    return <AttributeForm<TypeAttributeEdit> apiData={PatchAttribute} formValues={formValues} />;
+    return <AttributeForm<TypeAttributeEdit> apiData={PatchAttribute} formValues={formValues} edit={true} />;
 }

@@ -28,14 +28,13 @@ export const PatchAttribute = async (data: TypeAttributeEdit) => {
 
     try {
         const res = await fetch('http://localhost:3000/attribute/edit', {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
             credentials: 'include'
         })
-        console.log(res)
         if (!res.ok) {
             throw new Error('Error Server')
         }
@@ -43,7 +42,6 @@ export const PatchAttribute = async (data: TypeAttributeEdit) => {
         return resJson
 
     } catch (error) {
-        console.log(error)
         throw new Error(String(error))
     }
 
