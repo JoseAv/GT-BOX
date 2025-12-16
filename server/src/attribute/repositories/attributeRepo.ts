@@ -30,16 +30,24 @@ export class AttributesRepo {
     }
 
 
-    static editAttributes = async ({ attribute }: { attribute: TypeAttributeEdit }) => {
-        const newAttribute = attribute.attribute ? JSON.stringify(attribute.attribute) : null
-        const newValues = attribute.values ? JSON.stringify(attribute.values) : null
 
+    static editAttributes = async ({ attribute }: { attribute: TypeAttributeEdit }) => {
+        const newAttribute = attribute.attribute
+        const newValues = attribute.values
+        console.log(newValues)
         try {
-            const newProduct: Array<ResultDB> = await db.query('SELECT fn_edit_atributte_value(:attribute::jsonb,:values::jsonb) as result;',
+            const newProduct: Array<ResultDB> = await db.query(`SELECT fn_edit_atributte_value(
+                :j_attribute,
+                :a_create_values,
+                :a_edit_values,
+                :a_delete_values) as result;`,
                 {
                     replacements: {
-                        attribute: newAttribute,
-                        values: newValues
+                        j_attribute: JSON.stringify(newAttribute),
+                        a_create_values: JSON.stringify(newValues?.createValues),
+                        a_edit_values: JSON.stringify(newValues?.updateValues),
+                        a_delete_values: JSON.stringify(newValues?.deleteValues),
+
                     },
                     type: QueryTypes.SELECT
                 })
@@ -50,6 +58,7 @@ export class AttributesRepo {
             const responseDb = newProduct[0].result
             return [responseDb.http_code, { ...responseDb }]
         } catch (error) {
+            console.log(error)
             throw error
         }
     }
