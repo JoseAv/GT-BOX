@@ -11,7 +11,7 @@ export const SideBar = () => {
     const options: Record<string, typesSideBar> =
         {
             Inicio: { icon: <HomeSVG />, href: '#' },
-            Prices: { icon: <ArrowsSVG />, href: '#' },
+            Attributes: { icon: <ArrowsSVG />, href: 'attributes' },
             Products: { icon: <BoxSVG />, href: 'products' },
             User: { icon: <AdminsSVG />, href: 'user' },
         } as const
