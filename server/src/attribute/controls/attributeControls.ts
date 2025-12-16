@@ -27,7 +27,6 @@ export class AttributeControls {
     EditAttribute = async (req: Request, res: Response) => {
         try {
             const attribute = req.body
-            console.log(attribute)
             const [status, data] = await this.ModelAttribute.EditAttribute({ attribute })
             return res.status(status).json({ ...data })
         } catch (error) {

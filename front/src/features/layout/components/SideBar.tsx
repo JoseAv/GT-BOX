@@ -10,10 +10,10 @@ interface typesSideBar {
 export const SideBar = () => {
     const options: Record<string, typesSideBar> =
         {
-            Inicio: { icon: <HomeSVG />, href: '#' },
-            Attributes: { icon: <ArrowsSVG />, href: 'attributes' },
-            Products: { icon: <BoxSVG />, href: 'products' },
-            User: { icon: <AdminsSVG />, href: 'user' },
+            Inicio: { icon: <HomeSVG />, href: '/dashboard' },
+            Attributes: { icon: <ArrowsSVG />, href: '/attributes' },
+            Products: { icon: <BoxSVG />, href: '/products' },
+            User: { icon: <AdminsSVG />, href: '/user' },
         } as const
 
     return (
