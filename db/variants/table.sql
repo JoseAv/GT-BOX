@@ -22,3 +22,15 @@ add constraint fk_variant_product_variant
 foreign key (id_variant)
 references variant (id);
 
+
+insert into variant( sku, price, id_product, name, description) values('prueba',200, 3,'prueba variant', 'esta es una descripcion de variante');
+alter table variant
+add column name varchar(200);
+
+
+alter table variant
+add column description varchar(200);
+
+alter table variant
+alter column is_active set DEFAULT true;
+
